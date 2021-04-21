@@ -11,6 +11,8 @@ public class Niveau {
         char positionAutres []=new char[30];
         int positionMonstre []=new int[2];
         char carte [][];
+        int longueur = 0;
+        int largeur=0;
         try {
             BufferedReader fichier=new BufferedReader(new FileReader(niveau+".txt"));
             String ligne;
@@ -22,7 +24,7 @@ public class Niveau {
                        String [] positionString =ligne.split(",");
                        positionJoueur[i]=Integer.parseInt(positionString[i]);
                    }
-                }else if (ligneLu==1){
+                }else if (ligneLu!=0){
                     String [] tableauTemporaire=ligne.split(",");
                     positionAutres=tableauTemporaire[0].toCharArray();
                     for (int i=0; i<positionAutres.length; i++){
@@ -34,7 +36,14 @@ public class Niveau {
                             }
                         }
                         else if (positionAutres[i]=='#'){
+                            for (int y=0; y<positionAutres.length;y++){
+                                if (positionAutres[y]=='#'){
+                                    longueur++;
+                                }
+                            }
+                            while (ligne!=null){
 
+                            }
                         }
                     }
 
