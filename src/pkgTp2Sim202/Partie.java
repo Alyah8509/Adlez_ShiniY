@@ -6,7 +6,8 @@ public class Partie {
 
     public void jouer (){
         while (!statut){
-
+            Niveau floor1=new Niveau();
+            floor1.lire(1);
         statut=true;
         }
     }
