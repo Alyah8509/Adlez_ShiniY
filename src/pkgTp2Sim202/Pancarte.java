@@ -1,4 +1,4 @@
 package pkgTp2Sim202;
 
-public class Pancarte {
+public class Pancarte extends Tuile{
 }

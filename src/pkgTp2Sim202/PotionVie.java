@@ -1,4 +1,4 @@
 package pkgTp2Sim202;
 
-public class PotionVie {
+public class PotionVie extends Item{
 }

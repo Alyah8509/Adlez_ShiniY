@@ -1,4 +1,4 @@
 package pkgTp2Sim202;
 
-public class Tresor {
+public class Tresor extends Tuile{
 }
