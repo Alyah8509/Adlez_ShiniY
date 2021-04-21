@@ -6,15 +6,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Niveau {
+    int positionJoueur []=new int[2];
+    int donnesMonstres [][]=new int[2][30];
+    int nbDeMonstres=0;
+    int donnesPancartes []=new int[2];
+    String [] messagePancarte=new String[0];
+    int donnesTresor []=new int[20];
+    int nbDeTresor=0;
+    int [][] donnesTp=new int [2][30];
+    int nbDeTp;
+    char [][] carte = new char[0][];
+    int longueur = 0;
+    int largeur=0;
+    char positionAutres [];
+
 
     public char[][] lire(int niveau) {
-        int positionJoueur []=new int[2];
-        char positionAutres []=new char[30];
-        int donnesMonstres [][]=new int[12][12];
-        char [][] carte = new char[0][];
-        int longueur = 0;
-        int largeur=0;
-        int nbDeMonstres=0;
                 try {
                     BufferedReader fichier = new BufferedReader(new FileReader(niveau + ".txt"));
 
@@ -86,14 +93,30 @@ public class Niveau {
                             for (int i = 0; i < positionAutres.length; i++) {
                                 if (positionAutres[i] == ':') {
                                     if (positionAutres[0]=='m'){
-                                        donnesMonstres[0][nbDeMonstres]=Character.getNumericValue(positionAutres[i+1]);
-                                        positionAutres = tableauTemporaire[1].toCharArray();
-                                        donnesMonstres[0][nbDeMonstres+1]=Character.getNumericValue(positionAutres[0]);
-                                        positionAutres = tableauTemporaire[2].toCharArray();
-                                        donnesMonstres[1][nbDeMonstres]=Character.getNumericValue(positionAutres[0]);
-                                        positionAutres = tableauTemporaire[3].toCharArray();
-                                        donnesMonstres[1][nbDeMonstres+1]=Character.getNumericValue(positionAutres[0]);
+                                        donnesMonstres=raccourciMatrice(positionAutres,i,donnesMonstres,nbDeMonstres,tableauTemporaire);
                                         nbDeMonstres+=2;
+                                    }
+                                    else if (positionAutres[0]=='p'){
+                                        donnesPancartes=raccourciPancartes(donnesPancartes,positionAutres,i,tableauTemporaire);
+                                        int q=0;
+                                        String [] temporaire=new String[tableauTemporaire.length-2];
+                                        for (int r=tableauTemporaire.length-1; r> 1; r--){
+                                            temporaire[q]=tableauTemporaire[r];
+                                            q++;
+                                        }messagePancarte=new String[temporaire.length];
+                                        int a=1;
+                                        for (int r=0; r<temporaire.length; r++){
+                                            messagePancarte[r]=temporaire[temporaire.length-a];
+                                            a++;
+                                        }
+                                    }
+                                    else if (positionAutres[0]=='t'&&positionAutres[1]=='r'){
+                                        raccourciPlusieursCoordonnees(donnesTresor,positionAutres,nbDeTresor,i,tableauTemporaire);
+                                        nbDeTresor+=2;
+                                    }
+                                    else if (positionAutres[0]=='t'&&positionAutres[1]=='e'){
+                                        raccourciMatrice(positionAutres,i,donnesTp,nbDeTp,tableauTemporaire);
+                                        nbDeTp+=2;
                                     }
                                 }
                             }
@@ -101,18 +124,77 @@ public class Niveau {
                         ligneLu++;
                         ligne = fich1.readLine();
                     }
-                    for (int i=0; i<donnesMonstres.length; i+=2){
-                        if (donnesMonstres[0][i]==0){
+                    afficher(donnesMonstres,'@');
+                    afficher(donnesTp,'*');
+                    carte[positionJoueur[1]-1][positionJoueur[0]-1]='&';
+                    carte[donnesPancartes[1]-1][donnesPancartes[0]-1]='!';
+                    for (int i=0; i<donnesTresor.length; i+=2){
+                        if (donnesTresor[i]==0){
                             break;
                         }
-                        carte[donnesMonstres[0][i]-1][donnesMonstres[0][i+1]-1]='@';
+                        carte[donnesTresor[i+1]-1][donnesTresor[i]-1]='$';
                     }
-                    carte[positionJoueur[0]][positionJoueur[1]]='&';
                     fich1.close();
                 }catch (Exception e){
-
                 }
                 return carte;
+    }
+    private int [] raccourciPancartes (int [] donnes, char [] positionAutres, int i, String [] tableauTemporaire){
+        if (positionAutres[positionAutres.length-2]>=48&&positionAutres[positionAutres.length-2]<=57){
+            String test=Character.toString(positionAutres[i+1]);
+            test+=Character.toString(positionAutres[i+2]);
+            donnes[0]=Integer.parseInt(test);
+        }else{donnes[0]=Character.getNumericValue(positionAutres[i+1]);}
+        positionAutres = tableauTemporaire[1].toCharArray();
+        if (positionAutres.length>=2){
+            String test=Character.toString(positionAutres[0]);
+            test+=Character.toString(positionAutres[1]);
+            donnes[1]=Integer.parseInt(test);
+        }else {
+            donnes[1]=Character.getNumericValue(positionAutres[0]);}return donnes;
+    }
+    private int [] raccourciPlusieursCoordonnees (int[] donnes, char[]positionAutres, int nbDeX, int i,String[] tableauTemporaire){
+        if (positionAutres[positionAutres.length-2]>=48&&positionAutres[positionAutres.length-2]<=57){
+            String test=Character.toString(positionAutres[i+1]);
+            test+=Character.toString(positionAutres[i+2]);
+            donnes[nbDeX]=Integer.parseInt(test);
+        }
+        else {donnes[nbDeX]=Character.getNumericValue(positionAutres[i+1]);}
+        positionAutres = tableauTemporaire[1].toCharArray();
+        if (positionAutres.length>=2){
+            String test=Character.toString(positionAutres[0]);
+            test+=Character.toString(positionAutres[1]);
+            donnes[nbDeX+1]=Integer.parseInt(test);
+        }
+        else {donnes[nbDeX+1]=Character.getNumericValue(positionAutres[0]);}return donnes;
+    }
+    private int [][] raccourciMatrice (char [] positionAutres, int i,int [][]donnes, int nDeY,String[] tableauTemporaire){
+        if (positionAutres[positionAutres.length-2]>=48&&positionAutres[positionAutres.length-2]<=57){
+            String test=Character.toString(positionAutres[i+1]);
+            test+=Character.toString(positionAutres[i+2]);
+            donnes[0][nDeY]=Integer.parseInt(test);
+        }
+        else {donnes[0][nDeY]=Character.getNumericValue(positionAutres[i+1]);}
+        positionAutres = tableauTemporaire[1].toCharArray();
+        if (positionAutres.length>=2){
+            String test=Character.toString(positionAutres[0]);
+            test+=Character.toString(positionAutres[1]);
+            donnes[0][nDeY+1]=Integer.parseInt(test);
+        }
+        else {donnes[0][nDeY+1]=Character.getNumericValue(positionAutres[0]);}
+        positionAutres = tableauTemporaire[2].toCharArray();
+        donnes[1][nDeY]=Character.getNumericValue(positionAutres[0]);
+        positionAutres = tableauTemporaire[3].toCharArray();
+        donnes[1][nDeY+1]=Character.getNumericValue(positionAutres[0]);
+        return donnes;
+    }
+    private void afficher (int [][] donnes, char special){
+        for (int i=0; i<donnes[0].length; i+=2){
+            if (donnes[0][i]==0){
+                break;
+            }
+            carte[donnes[0][i+1]-1][donnes[0][i]-1]=special;
+        }
     }
 
 }

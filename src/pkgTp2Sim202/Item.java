@@ -1,4 +1,7 @@
 package pkgTp2Sim202;
 
-public class Item {
+public enum  Item {
+    POTIONDEVIE,
+    POTIONDEFORCE,
+    CRISTALMAGIQUE
 }
