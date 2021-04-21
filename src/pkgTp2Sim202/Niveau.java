@@ -14,7 +14,7 @@ public class Niveau {
     int donnesTresor []=new int[20];
     int nbDeTresor=0;
     int [][] donnesTp=new int [2][30];
-    int nbDeTp;
+    int nbDeTp=0;
     char [][] carte = new char[0][];
     int longueur = 0;
     int largeur=0;
@@ -23,6 +23,11 @@ public class Niveau {
 
     public char[][] lire(int niveau) {
                 try {
+                    longueur=0;
+                    largeur=0;
+                    nbDeMonstres=0;
+                    nbDeTresor=0;
+                    nbDeTp=0;
                     BufferedReader fichier = new BufferedReader(new FileReader(niveau + ".txt"));
 
                     String ligne;
@@ -124,15 +129,20 @@ public class Niveau {
                         ligneLu++;
                         ligne = fich1.readLine();
                     }
-                    afficher(donnesMonstres,'@');
-                    afficher(donnesTp,'*');
-                    carte[positionJoueur[1]-1][positionJoueur[0]-1]='&';
-                    carte[donnesPancartes[1]-1][donnesPancartes[0]-1]='!';
+                    if (donnesMonstres[0][0]>0){
+                    afficher(donnesMonstres,'@');}
+                    if (donnesTp[0][0]>0){
+                        afficher(donnesTp,'*');
+                    }
+                    carte[positionJoueur[1]][positionJoueur[0]]='&';
+                    if (donnesPancartes[0]>0){
+                        carte[donnesPancartes[1]][donnesPancartes[0]]='!';
+                    }
                     for (int i=0; i<donnesTresor.length; i+=2){
                         if (donnesTresor[i]==0){
                             break;
                         }
-                        carte[donnesTresor[i+1]-1][donnesTresor[i]-1]='$';
+                        carte[donnesTresor[i+1]][donnesTresor[i]]='$';
                     }
                     fich1.close();
                 }catch (Exception e){
@@ -193,7 +203,7 @@ public class Niveau {
             if (donnes[0][i]==0){
                 break;
             }
-            carte[donnes[0][i+1]-1][donnes[0][i]-1]=special;
+            carte[donnes[0][i+1]][donnes[0][i]]=special;
         }
     }
 
