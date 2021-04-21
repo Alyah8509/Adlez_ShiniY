@@ -9,7 +9,7 @@ public class Partie {
     public void jouer (){
         while (!statut){
             Niveau floor1=new Niveau();
-            char [][] a= floor1.lire(1);
+            floor1.lire(1);
         statut=true;
         }
     }

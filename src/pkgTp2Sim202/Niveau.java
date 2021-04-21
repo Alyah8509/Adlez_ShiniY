@@ -10,11 +10,11 @@ public class Niveau {
     public char[][] lire(int niveau) {
         int positionJoueur []=new int[2];
         char positionAutres []=new char[30];
-        int positionMonstre []=new int[2];
+        int donnesMonstres [][]=new int[12][12];
         char [][] carte = new char[0][];
         int longueur = 0;
         int largeur=0;
-
+        int nbDeMonstres=0;
                 try {
                     BufferedReader fichier = new BufferedReader(new FileReader(niveau + ".txt"));
 
@@ -85,13 +85,29 @@ public class Niveau {
                             positionAutres = tableauTemporaire[0].toCharArray();
                             for (int i = 0; i < positionAutres.length; i++) {
                                 if (positionAutres[i] == ':') {
-
+                                    if (positionAutres[0]=='m'){
+                                        donnesMonstres[0][nbDeMonstres]=Character.getNumericValue(positionAutres[i+1]);
+                                        positionAutres = tableauTemporaire[1].toCharArray();
+                                        donnesMonstres[0][nbDeMonstres+1]=Character.getNumericValue(positionAutres[0]);
+                                        positionAutres = tableauTemporaire[2].toCharArray();
+                                        donnesMonstres[1][nbDeMonstres]=Character.getNumericValue(positionAutres[0]);
+                                        positionAutres = tableauTemporaire[3].toCharArray();
+                                        donnesMonstres[1][nbDeMonstres+1]=Character.getNumericValue(positionAutres[0]);
+                                        nbDeMonstres+=2;
+                                    }
                                 }
                             }
                         }
                         ligneLu++;
                         ligne = fich1.readLine();
                     }
+                    for (int i=0; i<donnesMonstres.length; i+=2){
+                        if (donnesMonstres[0][i]==0){
+                            break;
+                        }
+                        carte[donnesMonstres[0][i]-1][donnesMonstres[0][i+1]-1]='@';
+                    }
+                    carte[positionJoueur[0]][positionJoueur[1]]='&';
                     fich1.close();
                 }catch (Exception e){
 
