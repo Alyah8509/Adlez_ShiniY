@@ -20,7 +20,6 @@ public class Niveau {
     int largeur=0;
     char positionAutres [];
 
-
     public char[][] lire(int niveau) {
                 try {
                     longueur=0;
@@ -205,6 +204,9 @@ public class Niveau {
             }
             carte[donnes[0][i+1]][donnes[0][i]]=special;
         }
+    }
+    public int [] getPositionJoueur(){
+        return positionJoueur;
     }
 
 }
