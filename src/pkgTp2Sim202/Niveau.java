@@ -3,6 +3,309 @@ package pkgTp2Sim202;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+
+public class Niveau {
+    ArrayList<Integer> positionJoueur = new ArrayList<>();
+    ArrayList<Character> positionAutres = new ArrayList<>();
+    int longueur;
+    int largeur;
+    ArrayList <Monstre> monstres=new ArrayList<>();
+    Tuile[][] carte;
+    ArrayList<Integer> donnesMonstres = new ArrayList<>();
+    char[] convertisseur=new char[1];
+    ArrayList<Integer> donnesPancartes = new ArrayList<>();
+    ArrayList<String> messagePancarte = new ArrayList<>();
+    ArrayList<Integer> donnesTresor = new ArrayList<>();
+    ArrayList<Integer> donnesTp = new ArrayList<>();
+    char[] tuiles;
+
+    public Tuile[][] lire(int niveau) {
+        try {
+
+            BufferedReader fichier = new BufferedReader(new FileReader(niveau + ".txt"));
+
+            String ligne;
+            ligne = fichier.readLine();
+            int ligneLu = 0;
+            while (ligne != null) {
+                if (ligneLu == 0) {
+                    for (int i = 0; i < 2; i++) {
+                        String[] positionString = ligne.split(",");
+                        positionJoueur.add(i, Integer.parseInt(positionString[i]));
+                    }
+                } else if (ligneLu != 0) {
+                    String[] tableauTemporaire = ligne.split(",");
+                    positionAutres.clear();
+                    tuiles = tableauTemporaire[0].toCharArray();
+                    for (int i = 0; i < tuiles.length; i++) {
+                        positionAutres.add(tuiles[i]);
+                    }
+                    if (positionAutres.contains('#')) {
+                        longueur = positionAutres.size();
+                        while (ligne != null) {
+                            largeur++;
+                            ligne = fichier.readLine();
+                        }
+                        break;
+                    }
+
+                }
+                ligneLu++;
+                ligne = fichier.readLine();
+            }
+            fichier.close();
+            ligneLu = 0;
+            carte = new Tuile[largeur][longueur];
+            BufferedReader fich = new BufferedReader(new FileReader(niveau + ".txt"));
+            ligne = fich.readLine();
+            while (ligne != null) {
+                String[] tableauTemporaire = ligne.split(",");
+                positionAutres.clear();
+                tuiles = tableauTemporaire[0].toCharArray();
+                for (int i = 0; i < tuiles.length; i++) {
+                    positionAutres.add(tuiles[i]);
+                }
+                for (int i = 0; i < positionAutres.size(); i++) {
+                    if (positionAutres.get(i).equals('#')) {
+                        while (ligne != null) {
+                            for (int t = 0; t < largeur; t++) {
+                                for (int a = 0; a < longueur; a++) {
+                                    if (positionAutres.get(a).equals('#')) {
+                                        carte[t][a] = new Mur();
+                                    } else if (positionAutres.get(a).equals(' ')) {
+                                        carte[t][a] = new Plancher();
+                                    }
+                                }
+                                ligne = fich.readLine();
+                                if (ligne == null) {
+                                    break;
+                                }
+                                tableauTemporaire = ligne.split(",");
+                                positionAutres.clear();
+                                tuiles = tableauTemporaire[0].toCharArray();
+                                for (int y = 0; y < tuiles.length; y++) {
+                                    positionAutres.add(tuiles[y]);
+                                }
+                            }
+                        }
+                    }
+                }
+                ligne = fich.readLine();
+            }
+            fich.close();
+            BufferedReader fich1 = new BufferedReader(new FileReader(niveau + ".txt"));
+            ligne = fich1.readLine();
+            while (ligne != null) {
+                if (ligneLu != 0) {
+                    String[] tableauTemporaire = ligne.split(",");
+                    positionAutres.clear();
+                    tuiles = tableauTemporaire[0].toCharArray();
+                    for (int i = 0; i < tuiles.length; i++) {
+                        positionAutres.add(tuiles[i]);
+                    }
+                    for (int i = 0; i < positionAutres.size(); i++) {
+                        if (positionAutres.get(i).equals(':')) {
+                            if (positionAutres.get(0).equals('m')) {
+                                convertisseur[0] = positionAutres.get(positionAutres.size() - 2);
+                                if (convertisseur[0] >= 48 && convertisseur[0] <= 57) {
+                                    convertisseur[0] = positionAutres.get(i + 1);
+                                    String test = Character.toString(convertisseur[0]);
+                                    convertisseur[0] = positionAutres.get(i + 2);
+                                    test += Character.toString(convertisseur[0]);
+                                    donnesMonstres.add(Integer.parseInt(test));
+                                } else {
+                                    convertisseur[0] = positionAutres.get(i + 1);
+                                    donnesMonstres.add(Character.getNumericValue(convertisseur[0]));
+                                }
+                                positionAutres.clear();
+                                tuiles = tableauTemporaire[1].toCharArray();
+                                for (int y = 0; y < tuiles.length; y++) {
+                                    positionAutres.add(tuiles[y]);
+                                }
+                                if (positionAutres.size() >= 2) {
+                                    convertisseur[0] = positionAutres.get(0);
+                                    String test = Character.toString(convertisseur[0]);
+                                    convertisseur[0] = positionAutres.get(1);
+                                    test += Character.toString(convertisseur[0]);
+                                    donnesMonstres.add(Integer.parseInt(test));
+                                } else {
+                                    convertisseur[0] = positionAutres.get(0);
+                                    donnesMonstres.add(Character.getNumericValue(convertisseur[0]));
+                                }
+                                positionAutres.clear();
+                                tuiles = tableauTemporaire[0].toCharArray();
+                                for (int y = 0; y < tuiles.length; y++) {
+                                    positionAutres.add(tuiles[y]);
+                                }
+                                convertisseur[0] = positionAutres.get(0);
+                                donnesMonstres.add(Character.getNumericValue(convertisseur[0]));
+                                positionAutres.clear();
+                                tuiles = tableauTemporaire[0].toCharArray();
+                                for (int y = 0; y < tuiles.length; y++) {
+                                    positionAutres.add(tuiles[y]);
+                                }
+                                convertisseur[0] = positionAutres.get(0);
+                                donnesMonstres.add(Character.getNumericValue(convertisseur[0]));
+                            } else if (positionAutres.get(0).equals('p')) {
+                                convertisseur[0] = positionAutres.get(positionAutres.size() - 2);
+                                if (convertisseur[0] >= 48 && convertisseur[0] <= 57) {
+                                    convertisseur[0] = positionAutres.get(i + 1);
+                                    String test = Character.toString(convertisseur[0]);
+                                    convertisseur[0] = positionAutres.get(i + 2);
+                                    test += Character.toString(convertisseur[0]);
+                                    donnesPancartes.add(Integer.parseInt(test));
+                                } else {
+                                    convertisseur[0] = positionAutres.get(i + 1);
+                                    donnesPancartes.add(Character.getNumericValue(convertisseur[0]));
+                                }
+                                positionAutres.clear();
+                                tuiles = tableauTemporaire[1].toCharArray();
+                                for (int y = 0; y < tuiles.length; y++) {
+                                    positionAutres.add(tuiles[y]);
+                                }
+                                if (positionAutres.size() >= 2) {
+                                    convertisseur[0] = positionAutres.get(0);
+                                    String test = Character.toString(convertisseur[0]);
+                                    convertisseur[0] = positionAutres.get(1);
+                                    test += Character.toString(convertisseur[0]);
+                                    donnesPancartes.add(Integer.parseInt(test));
+                                } else {
+                                    convertisseur[0] = positionAutres.get(0);
+                                    donnesPancartes.add(Character.getNumericValue(convertisseur[0]));
+                                }
+                                int q = 0;
+                                String[] temporaire = new String[tableauTemporaire.length - 2];
+                                for (int r = tableauTemporaire.length - 1; r > 1; r--) {
+                                    temporaire[q] = tableauTemporaire[r];
+                                    q++;
+                                }
+                                int a = 1;
+                                for (int r = 0; r < temporaire.length; r++) {
+                                    messagePancarte.add(temporaire[temporaire.length - a]);
+                                    a++;
+                                }
+                            } else if (positionAutres.get(0).equals('t') && positionAutres.get(1).equals('r')) {
+                                convertisseur[0] = positionAutres.get(positionAutres.size() - 2);
+                                if (convertisseur[0] >= 48 && convertisseur[0] <= 57) {
+                                    convertisseur[0] = positionAutres.get(i + 1);
+                                    String test = Character.toString(convertisseur[0]);
+                                    convertisseur[0] = positionAutres.get(i + 2);
+                                    test += Character.toString(convertisseur[0]);
+                                    donnesTresor.add(Integer.parseInt(test));
+                                } else {
+                                    convertisseur[0] = positionAutres.get(i + 1);
+                                    donnesTresor.add(Character.getNumericValue(convertisseur[0]));
+                                }
+                                positionAutres.clear();
+                                tuiles = tableauTemporaire[1].toCharArray();
+                                for (int y = 0; y < tuiles.length; y++) {
+                                    positionAutres.add(tuiles[y]);
+                                }
+                                if (positionAutres.size() >= 2) {
+                                    convertisseur[0] = positionAutres.get(0);
+                                    String test = Character.toString(convertisseur[0]);
+                                    convertisseur[0] = positionAutres.get(1);
+                                    test += Character.toString(convertisseur[0]);
+                                    donnesTresor.add(Integer.parseInt(test));
+                                } else {
+                                    convertisseur[0] = positionAutres.get(0);
+                                    donnesTresor.add(Character.getNumericValue(convertisseur[0]));
+                                }
+                            } else if (positionAutres.get(0).equals('t') && positionAutres.get(1).equals('e')) {
+                                convertisseur[0] = positionAutres.get(positionAutres.size() - 2);
+                                if (convertisseur[0] >= 48 && convertisseur[0] <= 57) {
+                                    convertisseur[0] = positionAutres.get(i + 1);
+                                    String test = Character.toString(convertisseur[0]);
+                                    convertisseur[0] = positionAutres.get(i + 2);
+                                    test += Character.toString(convertisseur[0]);
+                                    donnesTp.add(Integer.parseInt(test));
+                                } else {
+                                    convertisseur[0] = positionAutres.get(i + 1);
+                                    donnesTp.add(Character.getNumericValue(convertisseur[0]));
+                                }
+                                positionAutres.clear();
+                                tuiles = tableauTemporaire[1].toCharArray();
+                                for (int y = 0; y < tuiles.length; y++) {
+                                    positionAutres.add(tuiles[y]);
+                                }
+                                if (positionAutres.size() >= 2) {
+                                    convertisseur[0] = positionAutres.get(0);
+                                    String test = Character.toString(convertisseur[0]);
+                                    convertisseur[0] = positionAutres.get(1);
+                                    test += Character.toString(convertisseur[0]);
+                                    donnesTp.add(Integer.parseInt(test));
+                                } else {
+                                    convertisseur[0] = positionAutres.get(0);
+                                    donnesTp.add(Character.getNumericValue(convertisseur[0]));
+                                }
+                                positionAutres.clear();
+                                tuiles = tableauTemporaire[0].toCharArray();
+                                for (int y = 0; y < tuiles.length; y++) {
+                                    positionAutres.add(tuiles[y]);
+                                }
+                                convertisseur[0] = positionAutres.get(0);
+                                donnesTp.add(Character.getNumericValue(convertisseur[0]));
+                                positionAutres.clear();
+                                tuiles = tableauTemporaire[0].toCharArray();
+                                for (int y = 0; y < tuiles.length; y++) {
+                                    positionAutres.add(tuiles[y]);
+                                }
+                                convertisseur[0] = positionAutres.get(0);
+                                donnesTp.add(Character.getNumericValue(convertisseur[0]));
+                            }
+                        }
+                    }
+                }
+                ligneLu++;
+                ligne = fich1.readLine();
+            }
+
+        if (donnesMonstres!=null) {
+
+            for (int i=0; i<donnesMonstres.size(); i+=4){
+                monstres.add(new Monstre(donnesMonstres.get(i+2),donnesMonstres.get(i+3)));
+            }
+        }
+        //carte[positionJoueur.get(1)][positionJoueur.get(0)]=new Plancher();
+        if (donnesTp!=null) {
+            for (int i=0; i<donnesTp.size(); i+=4){
+                carte[donnesTp.get(i+1)][donnesTp.get(i)]=new Teleporteur(donnesTp.get(i+2),donnesTp.get(i+3));
+            }
+        }
+        if (donnesPancartes!=null) {
+            carte[donnesPancartes.get(1)][donnesPancartes.get(0)] = new Pancarte();
+        }
+
+        for (int i = 0; i < donnesTresor.size(); i += 2) {
+            carte[donnesTresor.get(i+1)][donnesTresor.get(i)] = new Tresor();
+        }
+
+            fich1.close();
+        } catch (Exception e) {
+        }
+        return carte;
+    }
+
+
+    /*private void afficher (int [][] donnes, char special){
+        for (int i=0; i<donnes[0].length; i+=2){
+            if (donnes[0][i]==0){
+                break;
+            }
+            carte[donnes[0][i+1]][donnes[0][i]]=special;
+        }
+    }*/
+    public ArrayList<Integer> getPositionJoueur() {
+        return positionJoueur;
+    }
+}
+
+
+    /*package pkgTp2Sim202;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Niveau {
@@ -19,134 +322,146 @@ public class Niveau {
     int longueur = 0;
     int largeur=0;
     char positionAutres [];
+    Tuile [][] map;
 
     public char[][] lire(int niveau) {
-                try {
-                    longueur=0;
-                    largeur=0;
-                    nbDeMonstres=0;
-                    nbDeTresor=0;
-                    nbDeTp=0;
-                    BufferedReader fichier = new BufferedReader(new FileReader(niveau + ".txt"));
+        try {
+            longueur=0;
+            largeur=0;
+            nbDeMonstres=0;
+            nbDeTresor=0;
+            nbDeTp=0;
+            BufferedReader fichier = new BufferedReader(new FileReader(niveau + ".txt"));
 
-                    String ligne;
-                    ligne = fichier.readLine();
-                    int ligneLu = 0;
-                    while (ligne != null) {
-                        if (ligneLu == 0) {
-                            for (int i = 0; i < positionJoueur.length; i++) {
-                                String[] positionString = ligne.split(",");
-                                positionJoueur[i] = Integer.parseInt(positionString[i]);
-                            }
-                        } else if (ligneLu != 0) {
-                            String[] tableauTemporaire = ligne.split(",");
-                            positionAutres = tableauTemporaire[0].toCharArray();
-                            for (int i = 0; i < positionAutres.length; i++) {
-                                if (positionAutres[i] == '#') {
-                                    for (int y = 0; y < positionAutres.length; y++) {
-                                        if (positionAutres[y] == '#') {
-                                            longueur++;
-                                        }
-                                    }
-                                    while (ligne != null) {
-                                        largeur++;
-                                        ligne = fichier.readLine();
-                                    }
-                                    break;
+            String ligne;
+            ligne = fichier.readLine();
+            int ligneLu = 0;
+            while (ligne != null) {
+                if (ligneLu == 0) {
+                    for (int i = 0; i < positionJoueur.length; i++) {
+                        String[] positionString = ligne.split(",");
+                        positionJoueur[i] = Integer.parseInt(positionString[i]);
+                    }
+                } else if (ligneLu != 0) {
+                    String[] tableauTemporaire = ligne.split(",");
+                    positionAutres = tableauTemporaire[0].toCharArray();
+                    for (int i = 0; i < positionAutres.length; i++) {
+                        if (positionAutres[i] == '#') {
+                            for (int y = 0; y < positionAutres.length; y++) {
+                                if (positionAutres[y] == '#') {
+                                    longueur++;
                                 }
                             }
-
-                        }
-                        ligneLu++;
-                        ligne = fichier.readLine();
-                    }
-                    fichier.close();
-                    ligneLu = 0;
-                    carte = new char[largeur][longueur];
-                    BufferedReader fich = new BufferedReader(new FileReader(niveau + ".txt"));
-                    ligne = fich.readLine();
-                    while (ligne != null) {
-                        String[] tableauTemporaire = ligne.split(",");
-                        positionAutres = tableauTemporaire[0].toCharArray();
-                        for (int i = 0; i < positionAutres.length; i++) {
-                            if (positionAutres[i] == '#') {
-                                while (ligne != null) {
-                                    for (int t = 0; t < largeur; t++) {
-                                        for (int a = 0; a < longueur; a++) {
-                                            carte[t][a] = positionAutres[a];
-                                        }
-                                        ligne = fich.readLine();
-                                        if (ligne == null) {
-                                            break;
-                                        }
-                                        tableauTemporaire = ligne.split(",");
-                                        positionAutres = tableauTemporaire[0].toCharArray();
-                                    }
-                                }
+                            while (ligne != null) {
+                                largeur++;
+                                ligne = fichier.readLine();
                             }
-                        }
-                        ligne = fich.readLine();
-                    }
-                    fich.close();
-                    BufferedReader fich1 = new BufferedReader(new FileReader(niveau + ".txt"));
-                    ligne = fich1.readLine();
-                    while (ligne != null) {
-                        if (ligneLu != 0) {
-                            String[] tableauTemporaire = ligne.split(",");
-                            positionAutres = tableauTemporaire[0].toCharArray();
-                            for (int i = 0; i < positionAutres.length; i++) {
-                                if (positionAutres[i] == ':') {
-                                    if (positionAutres[0]=='m'){
-                                        donnesMonstres=raccourciMatrice(positionAutres,i,donnesMonstres,nbDeMonstres,tableauTemporaire);
-                                        nbDeMonstres+=2;
-                                    }
-                                    else if (positionAutres[0]=='p'){
-                                        donnesPancartes=raccourciPancartes(donnesPancartes,positionAutres,i,tableauTemporaire);
-                                        int q=0;
-                                        String [] temporaire=new String[tableauTemporaire.length-2];
-                                        for (int r=tableauTemporaire.length-1; r> 1; r--){
-                                            temporaire[q]=tableauTemporaire[r];
-                                            q++;
-                                        }messagePancarte=new String[temporaire.length];
-                                        int a=1;
-                                        for (int r=0; r<temporaire.length; r++){
-                                            messagePancarte[r]=temporaire[temporaire.length-a];
-                                            a++;
-                                        }
-                                    }
-                                    else if (positionAutres[0]=='t'&&positionAutres[1]=='r'){
-                                        raccourciPlusieursCoordonnees(donnesTresor,positionAutres,nbDeTresor,i,tableauTemporaire);
-                                        nbDeTresor+=2;
-                                    }
-                                    else if (positionAutres[0]=='t'&&positionAutres[1]=='e'){
-                                        raccourciMatrice(positionAutres,i,donnesTp,nbDeTp,tableauTemporaire);
-                                        nbDeTp+=2;
-                                    }
-                                }
-                            }
-                        }
-                        ligneLu++;
-                        ligne = fich1.readLine();
-                    }
-                    if (donnesMonstres[0][0]>0){
-                    afficher(donnesMonstres,'@');}
-                    if (donnesTp[0][0]>0){
-                        afficher(donnesTp,'*');
-                    }
-                    carte[positionJoueur[1]][positionJoueur[0]]='&';
-                    if (donnesPancartes[0]>0){
-                        carte[donnesPancartes[1]][donnesPancartes[0]]='!';
-                    }
-                    for (int i=0; i<donnesTresor.length; i+=2){
-                        if (donnesTresor[i]==0){
                             break;
                         }
-                        carte[donnesTresor[i+1]][donnesTresor[i]]='$';
                     }
-                    fich1.close();
-                }catch (Exception e){
+
                 }
-                return carte;
+                ligneLu++;
+                ligne = fichier.readLine();
+            }
+            fichier.close();
+            ligneLu = 0;
+            carte = new char[largeur][longueur];
+            map=new Tuile[largeur][longueur];
+            BufferedReader fich = new BufferedReader(new FileReader(niveau + ".txt"));
+            ligne = fich.readLine();
+            while (ligne != null) {
+                String[] tableauTemporaire = ligne.split(",");
+                positionAutres = tableauTemporaire[0].toCharArray();
+                for (int i = 0; i < positionAutres.length; i++) {
+                    if (positionAutres[i] == '#') {
+                        while (ligne != null) {
+                            for (int t = 0; t < largeur; t++) {
+                                for (int a = 0; a < longueur; a++) {
+                                    carte[t][a] = positionAutres[a];
+                                }
+                                ligne = fich.readLine();
+                                if (ligne == null) {
+                                    break;
+                                }
+                                tableauTemporaire = ligne.split(",");
+                                positionAutres = tableauTemporaire[0].toCharArray();
+                            }
+                        }
+                    }
+                }
+                ligne = fich.readLine();
+            }
+            fich.close();
+            BufferedReader fich1 = new BufferedReader(new FileReader(niveau + ".txt"));
+            ligne = fich1.readLine();
+            while (ligne != null) {
+                if (ligneLu != 0) {
+                    String[] tableauTemporaire = ligne.split(",");
+                    positionAutres = tableauTemporaire[0].toCharArray();
+                    for (int i = 0; i < positionAutres.length; i++) {
+                        if (positionAutres[i] == ':') {
+                            if (positionAutres[0]=='m'){
+                                donnesMonstres=raccourciMatrice(positionAutres,i,donnesMonstres,nbDeMonstres,tableauTemporaire);
+                                nbDeMonstres+=2;
+                            }
+                            else if (positionAutres[0]=='p'){
+                                donnesPancartes=raccourciPancartes(donnesPancartes,positionAutres,i,tableauTemporaire);
+                                int q=0;
+                                String [] temporaire=new String[tableauTemporaire.length-2];
+                                for (int r=tableauTemporaire.length-1; r> 1; r--){
+                                    temporaire[q]=tableauTemporaire[r];
+                                    q++;
+                                }messagePancarte=new String[temporaire.length];
+                                int a=1;
+                                for (int r=0; r<temporaire.length; r++){
+                                    messagePancarte[r]=temporaire[temporaire.length-a];
+                                    a++;
+                                }
+                            }
+                            else if (positionAutres[0]=='t'&&positionAutres[1]=='r'){
+                                raccourciPlusieursCoordonnees(donnesTresor,positionAutres,nbDeTresor,i,tableauTemporaire);
+                                nbDeTresor+=2;
+                            }
+                            else if (positionAutres[0]=='t'&&positionAutres[1]=='e'){
+                                raccourciMatrice(positionAutres,i,donnesTp,nbDeTp,tableauTemporaire);
+                                nbDeTp+=2;
+                            }
+                        }
+                    }
+                }
+                ligneLu++;
+                ligne = fich1.readLine();
+            }
+            for (int i=0; i<carte.length; i++){
+                for (int y=0; y<carte[0].length; y++){
+                    if (carte[i][y]=='#'){
+                        map[i][y]=new Mur();
+                    }
+                    else if (carte[i][y]==' '){
+                        map[i][y]=new Plancher();
+                    }
+                }
+            }
+            if (donnesMonstres[0][0]>0){
+                afficher(donnesMonstres,'@');}
+            if (donnesTp[0][0]>0){
+                afficher(donnesTp,'*');
+            }
+            carte[positionJoueur[1]][positionJoueur[0]]='&';
+            if (donnesPancartes[0]>0){
+                carte[donnesPancartes[1]][donnesPancartes[0]]='!';
+            }
+            for (int i=0; i<donnesTresor.length; i+=2){
+                if (donnesTresor[i]==0){
+                    break;
+                }
+                carte[donnesTresor[i+1]][donnesTresor[i]]='$';
+            }
+            fich1.close();
+        }catch (Exception e){
+        }
+        return carte;
     }
     private int [] raccourciPancartes (int [] donnes, char [] positionAutres, int i, String [] tableauTemporaire){
         if (positionAutres[positionAutres.length-2]>=48&&positionAutres[positionAutres.length-2]<=57){
@@ -209,4 +524,6 @@ public class Niveau {
         return positionJoueur;
     }
 
-}
+}*/
+
+

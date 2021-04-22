@@ -1,4 +1,4 @@
 package pkgTp2Sim202;
 
-public class Personnage {
+public abstract class Personnage {
 }

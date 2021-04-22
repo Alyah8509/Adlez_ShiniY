@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class Partie {
     boolean statut=false;
-    Vie vieActuelle=Vie.VIVANT;
-    char [][] map;
+    //Vie vieActuelle=Vie.VIVANT;
+    Tuile[][] map;
     int niveau=1;
     Heros Adlez=new Heros();
     int [] positionJoueur;
@@ -15,9 +15,9 @@ public class Partie {
         Scanner sc=new Scanner(System.in);
         String actions;
         int essais=0;
-        while (!statut){
-            Niveau floor1=new Niveau();
-            if (essais==0) {
+        while (!statut) {
+            Niveau floor1 = new Niveau();
+            if (essais == 0) {
                 System.out.println("Vies: " + Adlez.getVie() + "/6        Force: " + Adlez.getForce() + "            Cristaux: " + Adlez.getCristaux());
                 map = floor1.lire(niveau);
                 for (int i = 0; i < map.length; i++) {
@@ -26,12 +26,12 @@ public class Partie {
                     }
                     System.out.println();
                 }
-            }else {
-                afficher();
+            } else {
+                //afficher();
             }
             System.out.println("Que voulez-vous faire: ");
 
-            actions=sc.nextLine();
+            actions=sc.nextLine();/*
             char [] actionEnChar= actions.toCharArray();
             if (essais==0){
             positionJoueur=floor1.getPositionJoueur();}
@@ -99,6 +99,8 @@ public class Partie {
             for (int y=0; y< map[0].length; y++){
                 System.out.print(map[i][y]);
             }System.out.println();
+        }
+    */
         }
     }
 }

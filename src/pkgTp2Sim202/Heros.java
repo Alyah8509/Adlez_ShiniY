@@ -1,6 +1,6 @@
 package pkgTp2Sim202;
 
-public class Heros {
+public class Heros extends Personnage {
     int vie=6;
     int force=1;
     int cristaux=0;
