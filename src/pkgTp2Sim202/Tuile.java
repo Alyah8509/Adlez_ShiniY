@@ -1,4 +1,5 @@
 package pkgTp2Sim202;
 
-public abstract class Tuile {
+public class Tuile {
+    int x;int y;
 }
