@@ -1,15 +1,16 @@
 package pkgTp2Sim202;
 
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Partie {
     boolean statut=false;
-    //Vie vieActuelle=Vie.VIVANT;
+    Vie vieActuelle=Vie.VIVANT;
     Tuile[][] map;
     int niveau=1;
     Heros Adlez=new Heros();
-    int [] positionJoueur;
+    ArrayList<Integer> positionJoueur=new ArrayList<>();
 
     public void jouer (){
         Scanner sc=new Scanner(System.in);
@@ -27,14 +28,14 @@ public class Partie {
                     System.out.println();
                 }
             } else {
-                //afficher();
+                afficher();
             }
             System.out.println("Que voulez-vous faire: ");
-
-            actions=sc.nextLine();/*
+            actions=sc.nextLine();
             char [] actionEnChar= actions.toCharArray();
             if (essais==0){
-            positionJoueur=floor1.getPositionJoueur();}
+                positionJoueur=floor1.getPositionJoueur();}
+            /*
 
             for (int i=0; i<actionEnChar.length; i++){
                 if (actionEnChar[i]=='w'){
@@ -88,6 +89,12 @@ public class Partie {
             essais++;
         }
     }
+
+
+
+    */
+        }
+    }
     public enum Vie {
         MORT,
         VIVANT,
@@ -98,9 +105,5 @@ public class Partie {
         for (int i=0; i< map.length; i++){
             for (int y=0; y< map[0].length; y++){
                 System.out.print(map[i][y]);
-            }System.out.println();
-        }
-    */
-        }
-    }
+            }System.out.println();}}
 }
