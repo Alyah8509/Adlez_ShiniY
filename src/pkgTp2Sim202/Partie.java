@@ -17,13 +17,15 @@ public class Partie {
         String actions;
         int essais=0;
         while (!statut) {
-            Niveau floor1 = new Niveau();
+            Niveau floor = new Niveau();
             if (essais == 0) {
+                positionJoueur=floor.getPositionJoueur();
                 System.out.println("Vies: " + Adlez.getVie() + "/6        Force: " + Adlez.getForce() + "            Cristaux: " + Adlez.getCristaux());
-                map = floor1.lire(niveau);
+                map = floor.lire(niveau);
+                map[positionJoueur.get(1)][positionJoueur.get(0)].setHero();
                 for (int i = 0; i < map.length; i++) {
                     for (int y = 0; y < map[0].length; y++) {
-                        System.out.print(map[i][y]);
+                        System.out.print(map[i][y].getSymbole());
                     }
                     System.out.println();
                 }
@@ -34,7 +36,7 @@ public class Partie {
             actions=sc.nextLine();
             char [] actionEnChar= actions.toCharArray();
             if (essais==0){
-                positionJoueur=floor1.getPositionJoueur();}
+                positionJoueur=floor.getPositionJoueur();}
             /*
 
             for (int i=0; i<actionEnChar.length; i++){
