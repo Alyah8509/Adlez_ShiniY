@@ -7,6 +7,8 @@ public abstract class Tuile {
     boolean vide;
     String adlez;
     String monstre;
+    int x; int y;
+    boolean tp;
     public String getSymbole (){
         return symbole;
     }
@@ -25,4 +27,15 @@ public abstract class Tuile {
     }
     public void ouvrir (){symbole=symbole2;}
     public boolean getVide (){return vide;}
+    public void setTp (int x, int y){
+        if (tp){
+        this.x=x;
+        this.y=y;}
+    }
+    public int getTpx (){
+        return x;
+    }
+    public int getTpy(){
+        return y;
+    }
 }
