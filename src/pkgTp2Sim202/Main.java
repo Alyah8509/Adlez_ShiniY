@@ -6,12 +6,13 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        int niveau = 1;
+        int niveau = 4;
         boolean fini=false;
         afficherIntro();
         Partie jeu = new Partie();
         while (!fini){
         jeu.jouer(niveau);
+        fini=jeu.getQuit();
         niveau++;
         }
     }

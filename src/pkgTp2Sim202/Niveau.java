@@ -125,25 +125,28 @@ public class Niveau {
                                 donnesTp=CoordonnesPlusieusDonnees(convertisseur,positionAutres,i,tableauTemporaire,tuiles,donnesTp);
                             }
                         }
+                        else if (positionAutres.get(i).equals('#')){
+                            break;
+                        }
                     }
                 }
                 ligneLu++;
                 ligne = fich1.readLine();
             }
 
-        if (donnesMonstres!=null) {
+        /*if (donnesMonstres!=null) {
 
             for (int i=0; i<donnesMonstres.size(); i+=4){
                 monstres.add(new Monstre(donnesMonstres.get(i+2),donnesMonstres.get(i+3)));
             }
-        }
+        }*/
         //carte[positionJoueur.get(1)][positionJoueur.get(0)];
-        if (donnesTp!=null) {
+        if (donnesTp.size()!=0) {
             for (int i=0; i<donnesTp.size(); i+=4){
                 carte[donnesTp.get(i+1)][donnesTp.get(i)]=new Teleporteur(donnesTp.get(i+2),donnesTp.get(i+3));
             }
         }
-        if (donnesPancartes!=null) {
+        if (donnesPancartes.size()!=0) {
             carte[donnesPancartes.get(1)][donnesPancartes.get(0)] = new Pancarte();
         }
 
@@ -154,6 +157,7 @@ public class Niveau {
             fich1.close();
         } catch (Exception e) {
         }
+
         return carte;
     }
 
@@ -248,12 +252,28 @@ public class Niveau {
             convertisseur[0] = positionAutres.get(0);
             donnes.add(Character.getNumericValue(convertisseur[0]));
         }
-        positionAutres=LigneEnArray(0,tableauTemporaire,positionAutres,tuiles);
-        convertisseur[0] = positionAutres.get(0);
-        donnes.add(Character.getNumericValue(convertisseur[0]));
-        positionAutres=LigneEnArray(0,tableauTemporaire,positionAutres,tuiles);
-        convertisseur[0] = positionAutres.get(0);
-        donnes.add(Character.getNumericValue(convertisseur[0]));
+        positionAutres=LigneEnArray(2,tableauTemporaire,positionAutres,tuiles);
+        if (positionAutres.size() >= 2) {
+            convertisseur[0] = positionAutres.get(0);
+            String test = Character.toString(convertisseur[0]);
+            convertisseur[0] = positionAutres.get(1);
+            test += Character.toString(convertisseur[0]);
+            donnes.add(Integer.parseInt(test));
+        } else {
+            convertisseur[0] = positionAutres.get(0);
+            donnes.add(Character.getNumericValue(convertisseur[0]));
+        }
+        positionAutres=LigneEnArray(3,tableauTemporaire,positionAutres,tuiles);
+        if (positionAutres.size() >= 2) {
+            convertisseur[0] = positionAutres.get(0);
+            String test = Character.toString(convertisseur[0]);
+            convertisseur[0] = positionAutres.get(1);
+            test += Character.toString(convertisseur[0]);
+            donnes.add(Integer.parseInt(test));
+        } else {
+            convertisseur[0] = positionAutres.get(0);
+            donnes.add(Character.getNumericValue(convertisseur[0]));
+        }
         return donnes;
     }
 
