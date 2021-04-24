@@ -14,7 +14,6 @@ public class Main {
         jeu.jouer(niveau);
        // fini=jeu.getQuit();
         niveau++;
-            System.out.printf("ok");;
         }
     }
 

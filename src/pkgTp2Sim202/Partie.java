@@ -25,7 +25,7 @@ public class Partie {
                 System.out.println("Vies: " + Adlez.getVie() + "/6        Force: " + Adlez.getForce() + "            Cristaux: " + Adlez.getCristaux());
                 map = floor.lire(niveau);
                 map[positionJoueur.get(1)][positionJoueur.get(0)].setHero();
-                if (donnesMonstres != null) {
+                if (donnesMonstres.size() != 0) {
                     for (int i = 0; i < donnesMonstres.size(); i += 4) {
                         map[donnesMonstres.get(i + 1)][donnesMonstres.get(i)].setMonstre();
                         monstres.add(new Monstre(donnesMonstres.get(i + 3), donnesMonstres.get(i + 2)));
@@ -84,7 +84,9 @@ public class Partie {
 
                 }
                 else if (actionEnChar[i]=='c'){
+                    if (map[Adlez.getY()][Adlez.getX()].getClass()==Pancarte.class){
 
+                    }
                 }
                 else if (actionEnChar[i]=='x'){
 
