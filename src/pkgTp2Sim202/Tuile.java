@@ -24,4 +24,5 @@ public abstract class Tuile {
         symbole=act;
     }
     public void ouvrir (){symbole=symbole2;}
+    public boolean getVide (){return vide;}
 }

@@ -28,4 +28,5 @@ public class Teleporteur extends Tuile {
         this.x=x;
         this.y=y;
     }
+    public boolean getVide (){return vide;}
 }

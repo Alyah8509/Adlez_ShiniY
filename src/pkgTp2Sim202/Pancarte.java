@@ -24,4 +24,5 @@ public class Pancarte extends Tuile {
     public void revenir (){
         symbole=act;
     }
+    public boolean getVide (){return vide;}
 }

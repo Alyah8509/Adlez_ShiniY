@@ -26,5 +26,6 @@ public class Tresor extends Tuile {
     public void ouvrir (){
         symbole=symbole2;
     }
+    public boolean getVide (){return vide;}
 
 }
