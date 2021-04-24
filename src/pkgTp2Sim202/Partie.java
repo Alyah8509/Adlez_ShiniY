@@ -8,8 +8,8 @@ public class Partie {
     boolean statut = false;
     Vie vieActuelle = Vie.VIVANT;
     Tuile[][] map;
+    boolean quit=false;
     Heros Adlez = new Heros();
-    ArrayList<Integer> positionJoueur = new ArrayList<>();
     ArrayList<Integer> donnesMonstres = new ArrayList<>();
     ArrayList<Monstre> monstres = new ArrayList<>();
 
@@ -20,63 +20,57 @@ public class Partie {
         while (!statut) {
             if (essais == 0) {
                 Niveau floor = new Niveau();
-                positionJoueur = floor.getPositionJoueur();
+                Adlez.setPosition(floor.getPositionJoueur());
                 donnesMonstres = floor.getDonnesMonstres();
-                System.out.println("Vies: " + Adlez.getVie() + "/6        Force: " + Adlez.getForce() + "            Cristaux: " + Adlez.getCristaux());
                 map = floor.lire(niveau);
-                map[positionJoueur.get(1)][positionJoueur.get(0)].setHero();
+                map[Adlez.getY()][Adlez.getX()].setHero();
                 if (donnesMonstres != null) {
                     for (int i = 0; i < donnesMonstres.size(); i += 4) {
                         map[donnesMonstres.get(i + 1)][donnesMonstres.get(i)].setMonstre();
                         monstres.add(new Monstre(donnesMonstres.get(i + 3), donnesMonstres.get(i + 2)));
                     }
                 }
-                for (int i = 0; i < map.length; i++) {
-                    for (int y = 0; y < map[0].length; y++) {
-                        System.out.print(map[i][y].getSymbole());
-                    }
-                    System.out.println();
-                }
+                Adlez.afficher(map);
             } else {
-                afficher();
+                Adlez.afficher(map);
             }
             System.out.println("Que voulez-vous faire: ");
             actions = sc.nextLine();
             char[] actionEnChar = actions.toCharArray();
             for (int i = 0; i < actionEnChar.length; i++) {
                 if (actionEnChar[i] == 'w') {
-                    if (map[positionJoueur.get(1) - 1][positionJoueur.get(0)].getVide()) {
-                        map[positionJoueur.get(1)][positionJoueur.get(0)].revenir();
-                        map[positionJoueur.get(1) - 1][positionJoueur.get(0)].setHero();
-                        positionJoueur.set(1, positionJoueur.get(1) - 1);
+                    if (map[Adlez.getY() - 1][Adlez.getX()].getVide()) {
+                        map[Adlez.getY()][Adlez.getX()].revenir();
+                        map[Adlez.getY() - 1][Adlez.getX()].setHero();
+                        Adlez.setY(Adlez.getY()-1);
                     } else {
                         System.out.println("Vous ne pouvez pas marcher par dessus!");
                         break;
                     }
 
                 } else if (actionEnChar[i] == 'a') {
-                    if (map[positionJoueur.get(1)][positionJoueur.get(0) - 1].getVide()) {
-                        map[positionJoueur.get(1)][positionJoueur.get(0)].revenir();
-                        map[positionJoueur.get(1)][positionJoueur.get(0) - 1].setHero();
-                        positionJoueur.set(0, positionJoueur.get(0) - 1);
+                    if (map[Adlez.getY()][Adlez.getX() - 1].getVide()) {
+                        map[Adlez.getY()][Adlez.getX()].revenir();
+                        map[Adlez.getY()][Adlez.getX() - 1].setHero();
+                        Adlez.setX(Adlez.getX()-1);
                     } else {
                         System.out.println("Vous ne pouvez pas marcher par dessus!");
                         break;
                     }
                 } else if (actionEnChar[i] == 's') {
-                    if (map[positionJoueur.get(1) + 1][positionJoueur.get(0)].getVide()) {
-                        map[positionJoueur.get(1)][positionJoueur.get(0)].revenir();
-                        map[positionJoueur.get(1) + 1][positionJoueur.get(0)].setHero();
-                        positionJoueur.set(1, positionJoueur.get(1) + 1);
+                    if (map[Adlez.getY() + 1][Adlez.getX()].getVide()) {
+                        map[Adlez.getY()][Adlez.getX()].revenir();
+                        map[Adlez.getY() + 1][Adlez.getX()].setHero();
+                        Adlez.setY(Adlez.getY()+1);
                     } else {
                         System.out.println("Vous ne pouvez pas marcher par dessus!");
                         break;
                     }
                 } else if (actionEnChar[i] == 'd') {
-                    if (map[positionJoueur.get(1)][positionJoueur.get(0) + 1].getVide()) {
-                        map[positionJoueur.get(1)][positionJoueur.get(0)].revenir();
-                        map[positionJoueur.get(1)][positionJoueur.get(0) + 1].setHero();
-                        positionJoueur.set(0, positionJoueur.get(0) + 1);
+                    if (map[Adlez.getY()][Adlez.getX() + 1].getVide()) {
+                        map[Adlez.getY()][Adlez.getX()].revenir();
+                        map[Adlez.getY()][Adlez.getX() + 1].setHero();
+                        Adlez.setX(Adlez.getX()+1);
                     } else {
                         System.out.println("Vous ne pouvez pas marcher par dessus!");
                         break;
@@ -90,6 +84,7 @@ public class Partie {
 
                 }
                 else if (actionEnChar[i]=='q'){
+                    quit=true;
                     break;
                 }
 
@@ -110,6 +105,9 @@ public class Partie {
 
     */
             }essais++;
+            if (quit){
+                break;
+            }
         }
 
     }
@@ -118,13 +116,7 @@ public class Partie {
         VIVANT,
         GAMECLEAR
     }
-    private void afficher () {
-        System.out.println("Vies: " + Adlez.getVie() + "/6        Force: " + Adlez.getForce() + "            Cristaux: " + Adlez.getCristaux());
-        for (int i = 0; i < map.length; i++) {
-            for (int y = 0; y < map[0].length; y++) {
-                System.out.print(map[i][y].getSymbole());
-            }
-            System.out.println();
-        }
+    public boolean getQuit (){
+        return quit;
     }
 }
