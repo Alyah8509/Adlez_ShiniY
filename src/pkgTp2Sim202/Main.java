@@ -6,9 +6,14 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        int niveau = 1;
+        boolean fini=false;
         afficherIntro();
         Partie jeu = new Partie();
-        jeu.jouer();
+        while (!fini){
+        jeu.jouer(niveau);
+        niveau++;
+        }
     }
 
         /**

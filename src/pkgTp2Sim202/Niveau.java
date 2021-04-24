@@ -169,6 +169,9 @@ public class Niveau {
     public ArrayList<Integer> getPositionJoueur() {
         return positionJoueur;
     }
+    public ArrayList<Integer> getDonnesMonstres (){
+        return donnesMonstres;
+    }
     public ArrayList<String> getMessagePancarte(){return messagePancarte;}
     private static ArrayList<Character> LigneEnArray (int chiffre,String[] tableauTemporaire, ArrayList<Character> positionAutres, char [] tuiles){
         positionAutres.clear();
