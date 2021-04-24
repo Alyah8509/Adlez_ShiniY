@@ -12,8 +12,9 @@ public class Main {
         Partie jeu = new Partie();
         while (!fini){
         jeu.jouer(niveau);
-        fini=jeu.getQuit();
+       // fini=jeu.getQuit();
         niveau++;
+            System.out.printf("ok");;
         }
     }
 

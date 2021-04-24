@@ -55,4 +55,10 @@ public class Heros extends Personnage {
     public void additionnerCristaux (){
         cristaux++;
     }
+
+    @Override
+    public String toString() {
+        String str = "&";
+        return str ;
+    }
 }
