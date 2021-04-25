@@ -6,9 +6,11 @@ public abstract class Tuile {
     String act;
     boolean vide;
     String adlez;
+    boolean personnage;
     String monstre;
     int x; int y;
     boolean tp;
+
     public String getSymbole (){
         return symbole;
     }
@@ -17,13 +19,16 @@ public abstract class Tuile {
             symbole=adlez;
         }
     }
+    public void setPersonnage (boolean personnage){
+        this.personnage=personnage;
+    }
     public void setMonstre(){
         if (vide){
             symbole=monstre;
         }
     }
     public void revenir (){
-        symbole=act;
+            symbole=act;
     }
     public void ouvrir (){symbole=symbole2;}
     public boolean getVide (){return vide;}

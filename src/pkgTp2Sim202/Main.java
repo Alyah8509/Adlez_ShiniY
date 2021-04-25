@@ -6,14 +6,18 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        int niveau = 4;
+        int niveau = 6;
         boolean fini=false;
         afficherIntro();
         Partie jeu = new Partie();
         while (!fini){
         jeu.jouer(niveau);
-       // fini=jeu.getQuit();
+        fini=jeu.getQuit();
         niveau++;
+        if (jeu.getCristaux()==6){
+            System.out.println("Game Clear");
+            fini=true;
+        }
         }
     }
 
