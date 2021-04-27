@@ -10,7 +10,8 @@ public abstract class Tuile {
     String monstre;
     int x; int y;
     boolean tp;
-
+    Item [] item;
+    boolean ouvert;
     public String getSymbole (){
         return symbole;
     }
@@ -18,6 +19,12 @@ public abstract class Tuile {
         if (vide){
             symbole=adlez;
         }
+    }
+    public Item [] getItem (){
+        return item;
+    }
+    public void setItem (int niveau, int x, int y){
+
     }
     public void setPersonnage (boolean personnage){
         this.personnage=personnage;

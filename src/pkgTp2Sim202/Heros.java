@@ -16,12 +16,13 @@ public class Heros extends Personnage {
     public int getCristaux(){
         return cristaux;
     }
-    public void additionnerVie(int combien){
-        vie+=combien;
-        if (vie>6){
+    public void additionnerVie(){
+        vie+=1;
+        if (vie>=6){
             vie=6;
         }
     }
+    public void addForce (){force+=1;}
     public void setPosition (ArrayList <Integer> position){
         this.position=position;
     }
@@ -56,9 +57,4 @@ public class Heros extends Personnage {
         cristaux++;
     }
 
-    @Override
-    public String toString() {
-        String str = "&";
-        return str ;
-    }
 }
