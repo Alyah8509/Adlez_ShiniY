@@ -120,14 +120,7 @@ public class Partie {
 
                         }else if (map[Adlez.getY()][Adlez.getX()+1].getClass()==Tresor.class){
                             map[Adlez.getY()][Adlez.getX()+1].setItem(niveau,Adlez.getX()+1,Adlez.getY());
-                            Item[] item=map[Adlez.getY()][Adlez.getX()+1].getItem();
-                            if (item[0].getClass()==CristalMagique.class){
-                                Adlez.additionnerCristaux();
-                            }else if (item[0].getClass()==PotionForce.class){
-                                Adlez.addForce();
-                            }else if (item[0].getClass()==PotionVie.class){
-                                Adlez.additionnerVie();
-                            }
+                            map[Adlez.getY()][Adlez.getX()+1].utiliser(Adlez);
                         }
                     }else if (map[Adlez.getY()][Adlez.getX()-1].getClass()!=Mur.class&&map[Adlez.getY()][Adlez.getX()-1].getClass()!=Plancher.class){
                         if (map[Adlez.getY()][Adlez.getX()-1].getClass()==Pancarte.class){
@@ -141,14 +134,7 @@ public class Partie {
                             boite.clear();
                         }else if (map[Adlez.getY()][Adlez.getX()-1].getClass()==Tresor.class){
                             map[Adlez.getY()][Adlez.getX()-1].setItem(niveau,Adlez.getX()-1,Adlez.getY());
-                            Item[] item=map[Adlez.getY()][Adlez.getX()-1].getItem();
-                            if (item[0].getClass()==CristalMagique.class){
-                                Adlez.additionnerCristaux();
-                            }else if (item[0].getClass()==PotionForce.class){
-                                Adlez.addForce();
-                            }else if (item[0].getClass()==PotionVie.class){
-                                Adlez.additionnerVie();
-                            }
+                            map[Adlez.getY()][Adlez.getX()-1].utiliser(Adlez);
                         }
                     }else if (map[Adlez.getY()+1][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()+1][Adlez.getX()].getClass()!=Plancher.class){
                         if (map[Adlez.getY()+1][Adlez.getX()].getClass()==Pancarte.class){
@@ -162,14 +148,7 @@ public class Partie {
                             boite.clear();
                         }else if (map[Adlez.getY()+1][Adlez.getX()].getClass()==Tresor.class){
                             map[Adlez.getY()+1][Adlez.getX()].setItem(niveau,Adlez.getX(),Adlez.getY()+1);
-                            Item[] item=map[Adlez.getY()+1][Adlez.getX()].getItem();
-                            if (item[0].getClass()==CristalMagique.class){
-                                Adlez.additionnerCristaux();
-                            }else if (item[0].getClass()==PotionForce.class){
-                                Adlez.addForce();
-                            }else if (item[0].getClass()==PotionVie.class){
-                                Adlez.additionnerVie();
-                            }
+                            map[Adlez.getY()+1][Adlez.getX()].utiliser(Adlez);
                         }
                     }else if (map[Adlez.getY()-1][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()-1][Adlez.getX()].getClass()!=Plancher.class){
                         if (map[Adlez.getY()-1][Adlez.getX()].getClass()==Pancarte.class){
@@ -183,14 +162,7 @@ public class Partie {
                             boite.clear();
                         }else if (map[Adlez.getY()-1][Adlez.getX()].getClass()==Tresor.class){
                             map[Adlez.getY()-1][Adlez.getX()].setItem(niveau,Adlez.getX(),Adlez.getY()-1);
-                            Item[] item=map[Adlez.getY()-1][Adlez.getX()].getItem();
-                            if (item[0].getClass()==CristalMagique.class){
-                                Adlez.additionnerCristaux();
-                            }else if (item[0].getClass()==PotionForce.class){
-                                Adlez.addForce();
-                            }else if (item[0].getClass()==PotionVie.class){
-                                Adlez.additionnerVie();
-                            }
+                            map[Adlez.getY()-1][Adlez.getX()].utiliser(Adlez);
                         }
                     }
 

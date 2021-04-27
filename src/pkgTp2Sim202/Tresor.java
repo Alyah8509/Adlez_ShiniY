@@ -13,8 +13,15 @@ public class Tresor extends Tuile {
     String monstre="@";
     Item [] item;
     boolean ouvert=false;
-    public Item [] getItem (){
-        return item;
+
+    public void utiliser (Heros Adlez){
+        if (item[0].getClass()==CristalMagique.class){
+            Adlez.additionnerCristaux();
+        }else if (item[0].getClass()==PotionForce.class){
+            Adlez.addForce();
+        }else if (item[0].getClass()==PotionVie.class){
+            Adlez.additionnerVie();
+        }
     }
     public void setItem (int niveau, int x, int y){
         item=new Item[1];
