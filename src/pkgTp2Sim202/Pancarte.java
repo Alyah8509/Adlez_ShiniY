@@ -8,6 +8,7 @@ public class Pancarte extends Tuile {
     boolean vide=true;
     String adlez="&";
     String monstre="@";
+    boolean personnage=false;
     public String getSymbole (){
         return symbole;
     }
@@ -21,8 +22,15 @@ public class Pancarte extends Tuile {
             symbole=monstre;
         }
     }
+    public void setPersonnage (boolean personnage){
+        this.personnage=personnage;
+    }
     public void revenir (){
-        symbole=act;
+        if (personnage){
+            symbole="@";
+        }else {
+
+            symbole=act;}
     }
     public boolean getVide (){return vide;}
 }
