@@ -22,4 +22,5 @@ public class Monstre extends Personnage {
     public void placer (){
 
     }
+
 }

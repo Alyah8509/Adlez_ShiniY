@@ -9,6 +9,10 @@ public class Teleporteur extends Tuile {
     String act = "*";
     String adlez = "&";
     String monstre = "@";
+    boolean personnage=false;
+    public void setPersonnage (boolean personnage){
+        this.personnage=personnage;
+    }
 
     public String getSymbole() {
         return symbole;
@@ -27,7 +31,11 @@ public class Teleporteur extends Tuile {
     }
 
     public void revenir() {
-        symbole = act;
+        if (personnage){
+            symbole="@";
+        }else {
+
+            symbole=act;}
     }
 
     public Teleporteur(int x, int y) {
