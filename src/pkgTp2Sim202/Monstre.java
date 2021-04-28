@@ -18,8 +18,6 @@ public class Monstre extends Personnage {
     public void partir(Tuile [][]map, int x, int y){
         map[y][x].setPersonnage(false);
         map[y][x].revenir();
-        this.x=x;
-        this.y=y;
     }
     public void placer (){
 
