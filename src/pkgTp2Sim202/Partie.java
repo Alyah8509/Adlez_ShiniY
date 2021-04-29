@@ -29,14 +29,7 @@ public class Partie {
                     //s'il y a une pancarte, préparer l'affichage
                 }
                 donnesTp=floor.donnesTp;
-                //nouveau liste int qui est les coordonnées du téléporteur
-                if (donnesTp.size()!=0){//s'il y en a un
-                    for (int i=0; i<donnesTp.size();i+=4){
-                        map[donnesTp.get(i+1)][donnesTp.get(i)].setTp(donnesTp.get(i+2),donnesTp.get(i+3));
-                        //map [coordonnée tp en y][coordonnée tp en x].set la destination
-                        //les coordonnées sont tous dans le arraylist (x,y,x destination, y destination, x du deuxième, y du deuxième, etc..)
-                    }
-                }
+
                 positionJoueur = floor.getPositionJoueur();
                 Adlez.setPosition(positionJoueur);
                 //setPosition s'agit de update la classe Heros pour Adlez, qu'elle est présentemment à cette position

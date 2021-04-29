@@ -2,24 +2,19 @@ package pkgTp2Sim202;
 
 public class Mur extends Tuile {
     String symbole="#";
-    String act="#";
     boolean vide=false;
-    String adlez="&";
-    String monstre="@";
+
+    /**
+     * retourne le symbole
+     * @return
+     */
     public String getSymbole (){
         return symbole;
     }
-    public void setHero (){
-        if (vide){
-            symbole=adlez;
-        }
-    }
-    public void setMonstre(){
-        if (vide){
-            symbole=monstre;
-        }
-    }
-    public void revenir (){
-        symbole=act;
-    }
-}
+
+    /**
+     * retourne si on peut marcher dessus ou non
+     * @return
+     */
+    public boolean getVide (){return vide;}
+}//Mur n'a presque rien vu qu'un ne peut pas piler dessus.

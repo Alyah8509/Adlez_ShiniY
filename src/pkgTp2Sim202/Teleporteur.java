@@ -3,26 +3,51 @@ package pkgTp2Sim202;
 public class Teleporteur extends Tuile {
     int x;
     int y;
-    boolean tp = true;
     String symbole = "*";
     boolean vide = true;
     String act = "*";
     String adlez = "&";
     String monstre = "@";
     boolean personnage=false;
+
+    /**
+     * le x et le y est les coordonnées du destination (ou il faut se téléporter)
+     * @param x
+     * @param y
+     */
+    public Teleporteur(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * montre s'il y avait un monstre sur cette case
+     * @param personnage
+     */
     public void setPersonnage (boolean personnage){
         this.personnage=personnage;
     }
 
+    /**
+     * retourne symbole
+     * @return
+     */
     public String getSymbole() {
         return symbole;
     }
 
+    /**
+     * remplace symbole par &
+     */
     public void setHero() {
         if (vide) {
             symbole = adlez;
         }
     }
+
+    /**
+     * remplace symbole par @
+     */
 
     public void setMonstre() {
         if (vide) {
@@ -30,6 +55,9 @@ public class Teleporteur extends Tuile {
         }
     }
 
+    /**
+     * revient au symbole d'avant
+     */
     public void revenir() {
         if (personnage){
             symbole="@";
@@ -38,24 +66,29 @@ public class Teleporteur extends Tuile {
             symbole=act;}
     }
 
-    public Teleporteur(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
 
+
+    /**
+     * si on peut marcher dessus
+     * @return
+     */
     public boolean getVide() {
         return vide;
     }
 
-    public void setTp(int x, int y) {
-        if (tp) {
-            this.x = x;
-            this.y = y;
-        }
-    }
+
+    /**
+     * retourne x (destination)
+     * @return
+     */
     public int getTpx (){
         return x;
     }
+
+    /**
+     * retourne y (destination)
+     * @return
+     */
     public int getTpy(){
         return y;
     }

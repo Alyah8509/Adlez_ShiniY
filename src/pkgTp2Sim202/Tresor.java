@@ -9,15 +9,27 @@ public class Tresor extends Tuile {
     String symbole2="_";
     String act="$";
     boolean vide=false;
-    String adlez="&";
-    String monstre="@";
     Item [] item;
     boolean ouvert=false;
 
+    /**
+     * voir à la classe item (et ses sous-classes). Mais en bref il utilise l'item
+     * @param Adlez
+     */
     public void utiliser (Heros Adlez){
         item[0].utiliser(Adlez);
 
     }
+
+    /**
+     * Dédide de l'item. Lit le fichier (environ la même méthode que dans niveau)
+     * regarde si les coordonnées x et y correspondent à celui du fichier.
+     * S'il correspond, il lit un charactère pour décider ce que l'item est
+     * puis il le stocke dans un tableau item
+     * @param niveau
+     * @param x
+     * @param y
+     */
     public void setItem (int niveau, int x, int y){
         item=new Item[1];
         ArrayList <Character> positionAutres=new ArrayList<>();
@@ -61,8 +73,10 @@ public class Tresor extends Tuile {
                         positionXY.add(Character.getNumericValue(convertisseur[0]));
                     }
                     if (positionXY.get(0)==x&&positionXY.get(1)==y){
+                        //si c'est la bonne ligne (x et y correspondent)
                         positionAutres.clear();
                         tuiles = tableauTemporaire[2].toCharArray();
+                        //passe le dernier mot en charactère
                         for (int i = 0; i < tuiles.length; i++) {
                             positionAutres.add(tuiles[i]);
                         }
@@ -74,40 +88,33 @@ public class Tresor extends Tuile {
                             case 'c': item[0]=new PotionForce();System.out.println("Potion de Force reçu");
                             break;
                         }
+                        //donc le trésor est ouvert
                         ouvert=true;
+                        //et le symbole va de $ à _: donc je change act directement vu que $ ne va plus être utilisé
                         act=symbole2;
+                        //puis je remplace symbole par act
                         symbole=act;
                     }
                 }
                 if (ouvert){
+                    //si c'est ouvert, il n'a plus besoin de lire la suite.
                     break;
                 }
-                positionXY.clear();positionXY.clear();
+                positionXY.clear();//si ce n'était pas la bonne ligne, vider la liste et recommencer
                 ligne=fichier.readLine();
             }fichier.close();
         }catch (Exception e){
 
         }
     }
+
+    /**
+     * retourne le symbole actuelle
+     * @return
+     */
     public String getSymbole (){
 
         return symbole;
-    }
-    public void setHero (){
-        if (vide){
-            symbole=adlez;
-        }
-    }
-    public void setMonstre(){
-        if (vide){
-            symbole=monstre;
-        }
-    }
-    public void revenir (){
-        symbole=act;
-    }
-    public void ouvrir (){
-        symbole=symbole2;
     }
     public boolean getVide (){return vide;}
 

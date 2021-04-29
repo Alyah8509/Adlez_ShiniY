@@ -6,18 +6,19 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        int niveau = 2;
-        boolean fini=false;
-        afficherIntro();
-        Partie jeu = new Partie();
-        while (!fini){
-        jeu.jouer(niveau);
-        fini=jeu.getQuit();
-        niveau++;
-        if (jeu.getCristaux()==6){
-            System.out.println("Game Clear");
+        int niveau = 4;//commence au niveau 1
+        boolean fini=false;//la partie n'est pas fini
+        afficherIntro();//afficher l'intro
+        Partie jeu = new Partie();//creer une nouvelle partie
+        while (!fini){//tant que ce n'est pas fini
+        jeu.jouer(niveau);//jouer au niveau decide
+        fini=jeu.getQuit();//si le joueur a choisi quit, le boolean quit serait true. donc fini=true
+        niveau++;//passe au niveau prochain
+        if (jeu.getCristaux()==6){//s'il y a 6 cristaux
+            afficherVictoire();
             fini=true;
         }
+        //si quit est false et cristaux est plus petit que 6, il passe au prochain niveau
         }
     }
 
@@ -61,7 +62,7 @@ public class Main {
             s.nextLine();
         }
 
-        public void afficherVictoire () {
+        public static void afficherVictoire () {
             System.out.println("          Félicitations! Vous avez tous les cristeaux magiques!");
             System.out.println("                        Le monde est sauvé!");
             System.out.println("                           Δ");

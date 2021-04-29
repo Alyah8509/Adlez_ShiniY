@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+
 public class Niveau {
     ArrayList<Integer> positionJoueur = new ArrayList<>();
     ArrayList<Character> positionAutres = new ArrayList<>();
