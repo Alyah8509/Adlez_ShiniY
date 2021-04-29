@@ -18,7 +18,6 @@ public class Niveau {
     ArrayList<Integer> donnesTresor = new ArrayList<>();
     ArrayList<Integer> donnesTp = new ArrayList<>();
     char[] tuiles;
-     //Monstre monstre;Heros hero=new Heros();
 
     /**
      * Ici, je passe en paramètre la carte pour chaque niveau ainsi que les
