@@ -21,22 +21,28 @@ public class Partie {
         String actions;
         int essais = 0;
         while (!statut) {
-            if (essais == 0) {
+            if (essais == 0) {//si c'est la première fois qu'on arrive à ce niveau
                 Niveau floor = new Niveau();
-                map = floor.lire(niveau);
+                map = floor.lire(niveau);//utilise lire pour avoir la carte
                 if (floor.donnesPancartes.size()!=0){
                     messages.setMessage(floor.messagePancarte);
+                    //s'il y a une pancarte, préparer l'affichage
                 }
                 donnesTp=floor.donnesTp;
-                if (donnesTp.size()!=0){
+                //nouveau liste int qui est les coordonnées du téléporteur
+                if (donnesTp.size()!=0){//s'il y en a un
                     for (int i=0; i<donnesTp.size();i+=4){
                         map[donnesTp.get(i+1)][donnesTp.get(i)].setTp(donnesTp.get(i+2),donnesTp.get(i+3));
+                        //map [coordonnée tp en y][coordonnée tp en x].set la destination
+                        //les coordonnées sont tous dans le arraylist (x,y,x destination, y destination, x du deuxième, y du deuxième, etc..)
                     }
                 }
                 positionJoueur = floor.getPositionJoueur();
                 Adlez.setPosition(positionJoueur);
+                //setPosition s'agit de update la classe Heros pour Adlez, qu'elle est présentemment à cette position
                 donnesMonstres = floor.getDonnesMonstres();
                 map[positionJoueur.get(1)][positionJoueur.get(0)].setHero();
+                //setHero va changer le symbole de cette tuile en & (ceux qui le peuvent)(voir Plancher pour plus de détails)
                 if (donnesMonstres.size() != 0) {
                     int info=0;
                     for (int i = 0; i < donnesMonstres.size(); i += 4) {
@@ -46,8 +52,10 @@ public class Partie {
                     }
                 }
                 Adlez.afficher(map);
+                //Adlez.afficher s'agit d'afficher la carte avec getSymbole qui retourne un String propre à cette tuile (devient & ou @ possiblement)
 
             } else {
+                //si la carte est déjà importée et Adlez a déjà bougé, il suffit de l'afficher
                 Adlez.afficher(map);
             }
             System.out.println("Que voulez-vous faire: ");

@@ -2,34 +2,41 @@ package pkgTp2Sim202;
 
 public class Plancher extends Tuile{
     String symbole=" ";
+    //Symbole est un String qui change dépendamment des personnages, donc il est variable
     String act=" ";
+    //act est le String qui ne va jamais changer: si Adlez part de la tuile, le symbole redevient ce qu'il était et donc c'est act qui stocke le symbole de départ
     boolean vide=true;
     boolean personnage=false;
     String adlez="&";
     String monstre="@";
     public String getSymbole (){
+
         return symbole;
     }
     public void setHero (){
+        //le boolean vide est la confimation de si on peut piler dessus ou non. Pour mur elle serait false par exemple
         if (vide){
+            //remplace le symbole d'espace par &
             symbole=adlez;
         }
     }
     public void setPersonnage (boolean personnage){
+        //il indique s'il y a un monstre dans cette tuile. Utilisé plus tard
         this.personnage=personnage;
     }
     public void setMonstre(){
+        //même chose avec @
         if (vide){
             symbole=monstre;
         }
     }
     public void revenir (){
+        //s'il y avait un monstre sur la place ou Adlez a pilé, alors le système s'en souvient et quand Adlez part le monstre est toujours là
         if (personnage){
             symbole="@";
         }else {
-
+            //si c'était un plancher normal, le symbole redevient ce qu'il était
         symbole=act;}
     }
-    public void ouvrir (){symbole=symbole2;}
-    public boolean getVide (){return vide;}
+    public boolean getVide (){return vide;}//voir si on peut piler sur cette tuile
 }
