@@ -28,8 +28,7 @@ public class Partie {
                     messages.setMessage(floor.messagePancarte);
                     //s'il y a une pancarte, préparer l'affichage
                 }
-                donnesTp=floor.donnesTp;
-
+                donnesTp=floor.getDonnesTp();
                 positionJoueur = floor.getPositionJoueur();
                 Adlez.setPosition(positionJoueur);
                 //setPosition s'agit de update la classe Heros pour Adlez, qu'elle est présentemment à cette position
