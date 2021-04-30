@@ -5,12 +5,12 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 public class Tresor extends Tuile {
-    String symbole="$";
-    String symbole2="_";
-    String act="$";
-    boolean vide=false;
-    Item [] item;
-    boolean ouvert=false;
+    private String symbole="$";
+    private String symbole2="_";
+    private String act="$";
+    private boolean vide=false;
+    private Item [] item;
+    private boolean ouvert=false;
 
     /**
      * voir à la classe item (et ses sous-classes). Mais en bref il utilise l'item

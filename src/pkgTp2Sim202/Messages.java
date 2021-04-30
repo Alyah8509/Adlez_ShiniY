@@ -3,7 +3,7 @@ package pkgTp2Sim202;
 import java.util.ArrayList;
 
 public class Messages {
-    ArrayList <String> message=new ArrayList<>();
+    private ArrayList <String> message=new ArrayList<>();
     public void setMessage (ArrayList <String> message){
         this.message=message;
     }

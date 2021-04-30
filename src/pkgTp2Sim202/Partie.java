@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Partie {
-    boolean statut = false;
-    Vie vieActuelle = Vie.VIVANT;
-    Tuile[][] map;
-    boolean quit=false;
-    Heros Adlez = new Heros();
-    ArrayList<Integer> positionJoueur = new ArrayList<>();
-    ArrayList<Integer> donnesMonstres = new ArrayList<>();
-    ArrayList<Monstre> monstres = new ArrayList<>();
-    Messages messages=new Messages();
-    ArrayList <Integer> donnesTp=new ArrayList<>();
+    private boolean statut = false;
+    private Tuile[][] map;
+    private boolean quit=false;
+    private Heros Adlez = new Heros();
+    private ArrayList<Integer> positionJoueur = new ArrayList<>();
+    private ArrayList<Integer> donnesMonstres = new ArrayList<>();
+    private ArrayList<Monstre> monstres = new ArrayList<>();
+    private Messages messages=new Messages();
+    private ArrayList <Integer> donnesTp=new ArrayList<>();
 
     public void jouer(int niveau) {
         Scanner sc = new Scanner(System.in);
@@ -24,8 +23,8 @@ public class Partie {
             if (essais == 0) {//si c'est la première fois qu'on arrive à ce niveau
                 Niveau floor = new Niveau();
                 map = floor.lire(niveau);//utilise lire pour avoir la carte
-                if (floor.donnesPancartes.size()!=0){
-                    messages.setMessage(floor.messagePancarte);
+                if (floor.getDonnesPancartes().size()!=0){
+                    messages.setMessage(floor.getMessagePancarte());
                     //s'il y a une pancarte, préparer l'affichage
                 }
                 donnesTp=floor.getDonnesTp();
@@ -186,7 +185,7 @@ public class Partie {
                 }else {
                     int vieMonstre=0;
                     for (int i=0; i<monstres.size(); i++){
-                        if (monstres.get(i).hp!=0){
+                        if (monstres.get(i).getHp()!=0){
                             vieMonstre++;
                         }
                     }

@@ -1,14 +1,14 @@
 package pkgTp2Sim202;
 
 public class Teleporteur extends Tuile {
-    int x;
-    int y;
-    String symbole = "*";
-    boolean vide = true;
-    String act = "*";
-    String adlez = "&";
-    String monstre = "@";
-    boolean personnage=false;
+    private int x;
+    private int y;
+    private String symbole = "*";
+    private boolean vide = true;
+    private String act = "*";
+    private String adlez = "&";
+    private String monstre = "@";
+    private boolean personnage=false;
 
     /**
      * le x et le y est les coordonnées du destination (ou il faut se téléporter)

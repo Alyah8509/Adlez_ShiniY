@@ -1,14 +1,14 @@
 package pkgTp2Sim202;
 
 public class Plancher extends Tuile{
-    String symbole=" ";
+    private String symbole=" ";
     //Symbole est un String qui change dépendamment des personnages, donc il est variable
-    String act=" ";
+    private String act=" ";
     //act est le String qui ne va jamais changer: si Adlez part de la tuile, le symbole redevient ce qu'il était et donc c'est act qui stocke le symbole de départ
-    boolean vide=true;
-    boolean personnage=false;
-    String adlez="&";
-    String monstre="@";
+    private boolean vide=true;
+    private boolean personnage=false;
+    private String adlez="&";
+    private String monstre="@";
 
     /**
      * retourne symbole pour l'affichage de la carte

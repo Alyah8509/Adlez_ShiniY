@@ -1,8 +1,8 @@
 package pkgTp2Sim202;
 
 public class Mur extends Tuile {
-    String symbole="#";
-    boolean vide=false;
+    private String symbole="#";
+    private boolean vide=false;
 
     /**
      * retourne le symbole

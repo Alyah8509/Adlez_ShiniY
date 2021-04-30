@@ -1,17 +1,18 @@
 package pkgTp2Sim202;
 
 public abstract class Tuile {
-    String symbole;
-    String symbole2;
-    String act;
-    boolean vide;
-    String adlez;
-    boolean personnage;
-    String monstre;
-    int x; int y;
-    boolean tp;
-    Item [] item;
-    boolean ouvert;
+    //quelques variables ne sont pas utilisé: ce sont juste tous les variables que les sous-classes utilisent
+    private String symbole;
+    private String symbole2;
+    private String act;
+    private boolean vide;
+    private String adlez;
+    private boolean personnage;
+    private String monstre;
+    private int x; private int y;
+    private boolean tp;
+    private Item [] item;
+    private boolean ouvert;
 //beaucoup de ces méthodes sont vides: ils ne sont pas utlisés mais plutôt overr
     /**
      * retourne le symbole de la tuile

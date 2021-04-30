@@ -6,19 +6,19 @@ import java.util.ArrayList;
 
 
 public class Niveau {
-    ArrayList<Integer> positionJoueur = new ArrayList<>();
-    ArrayList<Character> positionAutres = new ArrayList<>();
-    int longueur;
-    int largeur;
-    ArrayList <Monstre> monstres=new ArrayList<>();
-    Tuile[][] carte;
-    ArrayList<Integer> donnesMonstres = new ArrayList<>();
-    char[] convertisseur=new char[1];
-    ArrayList<Integer> donnesPancartes = new ArrayList<>();
-    ArrayList<String> messagePancarte = new ArrayList<>();
-    ArrayList<Integer> donnesTresor = new ArrayList<>();
-    ArrayList<Integer> donnesTp = new ArrayList<>();
-    char[] tuiles;
+    private ArrayList<Integer> positionJoueur = new ArrayList<>();
+    private ArrayList<Character> positionAutres = new ArrayList<>();
+    private int longueur;
+    private int largeur;
+    private ArrayList <Monstre> monstres=new ArrayList<>();
+    private Tuile[][] carte;
+    private ArrayList<Integer> donnesMonstres = new ArrayList<>();
+    private char[] convertisseur=new char[1];
+    private ArrayList<Integer> donnesPancartes = new ArrayList<>();
+    private ArrayList<String> messagePancarte = new ArrayList<>();
+    private ArrayList<Integer> donnesTresor = new ArrayList<>();
+    private ArrayList<Integer> donnesTp = new ArrayList<>();
+    private char[] tuiles;
 
     /**
      * Ici, je passe en paramètre la carte pour chaque niveau ainsi que les
@@ -219,6 +219,17 @@ public class Niveau {
         return donnesMonstres;
     }
 
+    /**
+     * Retourne donneesPancartes
+     * @return
+     */
+    public ArrayList<Integer> getDonnesPancartes (){return donnesPancartes;}
+
+    /**
+     * Retourne le message pour afficher
+     * @return
+     */
+    public ArrayList<String>getMessagePancarte(){return messagePancarte;}
     /**
      * transforme un String du tableau en arraylist de char.
      * @param chiffre

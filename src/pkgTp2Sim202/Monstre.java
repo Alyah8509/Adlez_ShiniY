@@ -1,13 +1,16 @@
 package pkgTp2Sim202;
 
 public class Monstre extends Personnage {
-    int attaque;
-    int hp;
-    int x;
-    int y;
+    private int attaque;
+    private int hp;
+    private int x;
+    private int y;
     public Monstre (int attaque, int hp){
         this.attaque=attaque;
         this.hp=hp;
+    }
+    public int getHp (){
+        return hp;
     }
     public void marcher(Tuile [][]map, int x, int y){
         map[y][x].setMonstre();

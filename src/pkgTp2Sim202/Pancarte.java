@@ -3,12 +3,12 @@ package pkgTp2Sim202;
 import java.util.ArrayList;
 
 public class Pancarte extends Tuile {
-    String symbole="!";
-    String act="!";
-    boolean vide=true;
-    String adlez="&";
-    String monstre="@";
-    boolean personnage=false;
+    private String symbole="!";
+    private String act="!";
+    private boolean vide=true;
+    private String adlez="&";
+    private String monstre="@";
+    private boolean personnage=false;
 
     /**
      * retourne symbole
