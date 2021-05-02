@@ -164,6 +164,12 @@ public class Partie {
                             map[Adlez.getY()-1][Adlez.getX()].utiliser(Adlez);
                         }
                     }
+                    if (niveau==6){
+                        if (Adlez.getCristaux()==6){
+                            quit=true;
+                            break;
+                        }
+                    }
 
                 }
                 else if (actionEnChar[i]=='x'){
