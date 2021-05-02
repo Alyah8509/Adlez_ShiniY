@@ -7,16 +7,15 @@ public class Main {
 
     public static void main(String[] args) {
         int niveau = 4;//commence au niveau 1
-        boolean fini=false;//la partie n'est pas fini
+        boolean quit=false;//la partie n'est pas fini
         afficherIntro();//afficher l'intro
         Partie jeu = new Partie();//creer une nouvelle partie
-        while (!fini){//tant que ce n'est pas fini
+        while (!quit){//tant que ce n'est pas fini
         jeu.jouer(niveau);//jouer au niveau decide
-        fini=jeu.getQuit();//si le joueur a choisi quit, le boolean quit serait true. donc fini=true
+        quit=jeu.getQuit();//si le joueur a choisi quit, le boolean quit serait true
         niveau++;//passe au niveau prochain
         if (jeu.getCristaux()==6){//s'il y a 6 cristaux
             afficherVictoire();
-            fini=true;
         }
         //si quit est false et cristaux est plus petit que 6, il passe au prochain niveau
         }
