@@ -92,4 +92,10 @@ public class Teleporteur extends Tuile {
     public int getTpy(){
         return y;
     }
+
+    /**
+     * Change le symbole
+     * @param symbole
+     */
+    public void setSymbole (String symbole){this.symbole=symbole;}
 }

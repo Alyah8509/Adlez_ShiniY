@@ -14,9 +14,11 @@ public class Main {
         jeu.jouer(niveau);//jouer au niveau decide
         fini=jeu.getQuit();//si le joueur a choisi quit, le boolean quit serait true. donc fini=true
         niveau++;//passe au niveau prochain
-        if (jeu.getCristaux()==6){//s'il y a 6 cristaux
+        if (jeu.getActuelle()== Partie.Vie.GAMECLEAR){//si la partie est cleared
             afficherVictoire();
             fini=true;
+        }else if (jeu.getActuelle()== Partie.Vie.MORT){
+            afficherDefaite();
         }
         //si quit est false et cristaux est plus petit que 6, il passe au prochain niveau
         }
@@ -73,7 +75,7 @@ public class Main {
             System.out.println("                          / \\");
         }
 
-        public void afficherDefaite () {
+        public static void afficherDefaite () {
             System.out.println("          Nooooon! Adlez est morte avant d'avoir collecté les");
             System.out.println("                       cristeaux magiques...");
             System.out.println();

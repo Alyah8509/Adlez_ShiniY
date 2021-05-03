@@ -28,6 +28,12 @@ public class Pancarte extends Tuile {
     }
 
     /**
+     * Change le symbole
+     * @param symbole
+     */
+    public void setSymbole (String symbole){this.symbole=symbole;}
+
+    /**
      * affiche @ au lieu du symbole
      */
     public void setMonstre(){

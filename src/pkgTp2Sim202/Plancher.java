@@ -56,7 +56,8 @@ public class Plancher extends Tuile{
         //s'il y avait un monstre sur la place ou Adlez a pilé, alors le système s'en souvient et quand Adlez part le monstre est toujours là
         if (personnage){
             symbole="@";
-        }else {
+        }
+        else {
             //si c'était un plancher normal, le symbole redevient ce qu'il était
         symbole=act;}
     }
@@ -66,4 +67,10 @@ public class Plancher extends Tuile{
      * @return
      */
     public boolean getVide (){return vide;}//voir si on peut piler sur cette tuile
+
+    /**
+     * Change le symbole
+     * @param symbole
+     */
+    public void setSymbole (String symbole){this.symbole=symbole;}
 }

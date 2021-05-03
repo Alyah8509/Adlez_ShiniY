@@ -8,6 +8,7 @@ public class Partie {
     private Tuile[][] map;
     private boolean quit=false;
     private Heros Adlez = new Heros();
+    private Vie actuelle=Vie.VIVANT;
     private ArrayList<Integer> positionJoueur = new ArrayList<>();
     private ArrayList<Integer> donnesMonstres = new ArrayList<>();
     private ArrayList<Monstre> monstres = new ArrayList<>();
@@ -187,17 +188,25 @@ public class Partie {
 
                 }
                 else if (actionEnChar[i]=='x'){
-                    for (int u=0; u<monstres.size(); u++){
+                    for (int u=0; u<monstres.size(); u++){//fait un tour dans la liste monstre
                         if (Adlez.getX()-monstres.get(u).getX()==-1||Adlez.getX()-monstres.get(u).getX()==0||
-                                Adlez.getX()-monstres.get(u).getX()==1){
+                                Adlez.getX()-monstres.get(u).getX()==1){//si un monstre est au alentours de Adlez
                             if (Adlez.getY()-monstres.get(u).getY()==-1||Adlez.getY()-monstres.get(u).getY()==0||
-                                    Adlez.getY()-monstres.get(u).getY()==1){
-                                Adlez.attaquer(monstres.get(u));
+                                    Adlez.getY()-monstres.get(u).getY()==1){//en y aussi
+                                Adlez.attaquer(monstres.get(u));//attaque
                             }
                         }
-                        if (monstres.get(u).getVie()<=0){
-                            monstres.get(u).partir(map,monstres.get(u).getX(),monstres.get(u).getY());
-                            monstres.remove(u);
+                        if (monstres.get(u).getVie()<=0){//si le monstre est mort
+                            if (Adlez.getX()==monstres.get(u).getX()&&Adlez.getY()==monstres.get(u).getY()){
+                                //situation 1: le monstre est sur Adlez
+                                map[Adlez.getY()][Adlez.getX()].setPersonnage(false);//même chose que partir ici
+                                map[Adlez.getY()][Adlez.getX()].setSymbole("&");
+                                //mais si il part, la méthode devenir va directement transformer symbole en act,
+                                //donc Adlez disparaît. Donc il remplace le symbole par & manuellement.
+                            }
+                            else {monstres.get(u).partir(map,monstres.get(u).getX(),monstres.get(u).getY());}
+                            //si Adlez n'est pas sur le monstre il peut partir directement
+                            monstres.remove(u);//enlevé pour éviter des bugs
                         }
                     }
                 }
@@ -206,28 +215,55 @@ public class Partie {
                     quit=true;
                     break;
                 }
+
                 for (int r=0; r<monstres.size();r++){
+                    //le tour des monstres (voir la classe Monstre)
                     monstres.get(r).verifier(Adlez,map);
                 }
-
+                if (Adlez.getVie()<=0){//si Adlez meurt
+                    quit=true;//quitter le jeu
+                    actuelle=Vie.MORT;//noter que Adlez est morte
+                    break;
+                }
             }
             essais++;
-            if (Adlez.getCristaux()==niveau){
-                //si par contre, Adlez a trouvé le cristal
+            if (Adlez.getCristaux()==6){//s'il y a 6 cristaux
+                if (monstres.size()==0){//et plus aucune monstre
+                    actuelle=Vie.GAMECLEAR;//noter que Adlez a gagné
+                    break;
+                }
+            }
+            else if (Adlez.getCristaux()==niveau){
+                //si par contre, Adlez a trouvé le cristal dans le niveau
                 if (monstres.size()==0){
                     //et qu'il y a aucun monstre, la boucle se brise et Adlez passe au prochain niveau
+                    actuelle=Vie.VIVANT;//noter que Adlez est en vie (passe au niveau suivant)
                     break;
                 }
             }
         }
 
     }
+
+    /**
+     * retourne quitter
+     * @return
+     */
     public boolean getQuit (){
         return quit;
     }
-    public int getCristaux(){
-        return Adlez.getCristaux();
+
+    /**
+     * retourne le statut de Adlez
+     * @return
+     */
+    public Vie getActuelle(){
+        return actuelle;
     }
+
+    /**
+     * Les 3 statuts possibles de Adlez
+     */
     public enum Vie {
         MORT,
         VIVANT,

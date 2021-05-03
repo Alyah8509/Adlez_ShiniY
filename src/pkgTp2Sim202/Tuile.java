@@ -95,4 +95,10 @@ public abstract class Tuile {
     public int getTpy(){
         return y;
     }
+
+    /**
+     * Change le symbole (voir le combat dans Partie)
+     * @param symbole
+     */
+    public void setSymbole (String symbole){this.symbole=symbole;}
 }
