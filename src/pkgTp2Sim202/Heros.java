@@ -54,6 +54,10 @@ public class Heros extends Personnage {
             return false;
         }else {return true;}
     }
+    public void attaquer (Monstre monstre){
+        monstre.diminuerVie(force);
+        System.out.println("Vie restant de ce monstre:"+monstre.getVie());
+    }
     public void additionnerCristaux (){
         cristaux++;
     }

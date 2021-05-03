@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        int niveau = 4;//commence au niveau 1
+        int niveau = 1;//commence au niveau 1
         boolean fini=false;//la partie n'est pas fini
         afficherIntro();//afficher l'intro
         Partie jeu = new Partie();//creer une nouvelle partie

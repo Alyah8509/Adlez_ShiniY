@@ -1,33 +1,74 @@
 package pkgTp2Sim202;
 
 public class Monstre extends Personnage {
-    int attaque;
-    Monstre monstre;
-    int hp;
-    int x;
-    int y;
-    int vie;
-    Mur mur;
-    int[] coordonner = new int[2];
-    int[] nouvelleCoordonner = new int[2];
-    boolean verif = false;
-
+    private int attaque;
+    private int hp;
+    private int x;
+    private int y;
     public Monstre(int attaque, int hp) {
         this.attaque = attaque;
         this.hp = hp;
     }
+    public int getX (){return x;}
+    public int getVie (){return hp;}
+    public int getY (){return y;}
+    public void verifier (Heros Adlez, Tuile [][]map){
+        if (Adlez.getX()-x==-1||Adlez.getX()-x==0||Adlez.getX()-x==1){
+            if (Adlez.getY()-y==-1||Adlez.getY()-y==0||Adlez.getY()-y==1){
+                attaquerHeros(Adlez);
+            }
+            else {
+                if (Adlez.getY()-y<=-1){
+                    if (map[y-1][x].getVide()){
+                        partir(map,x,y);
+                        y-=1;
+                        marcher(map,x,y);}
+                }else if (Adlez.getY()-y>=1){
+                    if (map[y+1][x].getVide()){
+                        partir(map,x,y);
+                        y+=1;
+                        marcher(map,x,y);}
+                }
+            }
+        }
+        else {
+        if (Adlez.getX()-x<=-1){
+            if (map[y][x-1].getVide()){
+                partir(map,x,y);
+                x-=1;
+                marcher(map,x,y);
+            }
+        }else if (Adlez.getX()-x>=1){
+            if (map[y][x+1].getVide()){
+                partir(map,x,y);
+                x+=1;
+                marcher(map,x,y);
+            }
+        }
+        if (Adlez.getY()-y<=-1){
+            if (map[y-1][x].getVide()){
+                partir(map,x,y);
+            y-=1;
+            marcher(map,x,y);}
+        }else if (Adlez.getY()-y>=1){
+            if (map[y+1][x].getVide()){
+                partir(map,x,y);
+            y+=1;
+            marcher(map,x,y);}
+        }
+        }
+    }
 
-    public void marcher(Heros Adlez, Tuile[][] map, int x, int y,int yAdlez, int xAdlez) {
+    public void marcher(Tuile[][] map, int x, int y) {
         map[y][x].setMonstre();
         map[y][x].setPersonnage(true);
-        coordonner[0] = x;
-        coordonner[1] = y;
+        this.x=x;this.y=y;
 
         //for (int i = 0; i < map.length; i++) {
            //for (int j = 0; j < map.length; j++) {
                //faire la condition d'avancement
                 
-        attaquerHeros(map,Adlez,coordonner[0],coordonner[1],yAdlez,xAdlez);
+        /*attaquerHeros(map,Adlez,coordonner[0],coordonner[1],yAdlez,xAdlez);
                 if (yAdlez - coordonner[1]<= -1 && map[coordonner[1]-1][coordonner[0]]!=mur){
                     coordonner[1]-=1;
                 }
@@ -39,7 +80,7 @@ public class Monstre extends Personnage {
                 }
                 if (xAdlez-coordonner[0]>=1&& map[coordonner[1]][coordonner[0]+1]!=mur){
                     coordonner[0]+=1;
-                }
+                }*/
             //}
         //}
     }
@@ -54,30 +95,27 @@ public class Monstre extends Personnage {
     public void deplacer (){
 
     }
+    public void ff (){
 
+    }
     public int getHp() {
-
         return hp;
     }
-    private void attaquerHeros(Tuile[][] map, Heros Adlez, int xMonstre, int yMonstre, int yAdlez, int xAdlez){
+    private void attaquerHeros(Heros Adlez){
+        Adlez.diminuerVie(attaque);
 
-            if (xAdlez+1 == xMonstre && yAdlez == yMonstre || xAdlez-1 == xMonstre && yMonstre == yAdlez || yAdlez-1== yMonstre && xAdlez == xMonstre || yAdlez+1== yMonstre && xAdlez == xMonstre){
+            /*if (xAdlez+1 == xMonstre && yAdlez == yMonstre || xAdlez-1 == xMonstre && yMonstre == yAdlez || yAdlez-1== yMonstre && xAdlez == xMonstre || yAdlez+1== yMonstre && xAdlez == xMonstre){
             //attaquer adlez
                 Adlez.diminuerVie(attaque);
             }
             else if (xAdlez + 1 == xMonstre && yAdlez + 1 == yMonstre || xAdlez - 1 == xMonstre && yAdlez + 1 == yMonstre || xAdlez - 1 == xMonstre && yAdlez - 1 == yMonstre || xAdlez + 1 == xMonstre && yAdlez - 1 == yMonstre){
                 Adlez.diminuerVie(attaque);
-            }
+            }*/
 
 
 
     }
-    public boolean diminuerVie (int combien) {
-        vie -= combien;
-        if (vie <= 0) {
-            return false;
-        } else {
-            return true;
-        }
+    public void diminuerVie (int combien) {
+        hp -= combien;
     }
 }
