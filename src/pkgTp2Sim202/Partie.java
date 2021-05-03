@@ -58,11 +58,12 @@ public class Partie {
             char[] actionEnChar = actions.toCharArray();//transforme le String saisi en char
             for (int i = 0; i < actionEnChar.length; i++) {//et lit les char un par un
                 if (actionEnChar[i] == 'w') {//si c'est w,
+                    //ne peut pas être découpé en méthode vu que X et Y change selon le mouvement.
                     if (map[Adlez.getY() - 1][Adlez.getX()].getVide()) {//vérifie si la case en haut peut être pilé
                         map[Adlez.getY()][Adlez.getX()].revenir();//la case ou Adlez est présentemment devient vide
                         map[Adlez.getY() - 1][Adlez.getX()].setHero();
                         //et le symbole de la case d'en haut est remplacé par &
-                        Adlez.setY(Adlez.getY()-1);//mis à jour des coordonnées de Adlezz
+                        Adlez.setY(Adlez.getY()-1);//mis à jour des coordonnées de Adlez
                     } else {//si getVide retourne false (mur ou trésor)
                         System.out.println("Vous ne pouvez pas marcher par dessus!");
                         break;
@@ -98,86 +99,7 @@ public class Partie {
 
                 }
                 else if (actionEnChar[i]=='c'){
-                    ArrayList<Integer> boite=new ArrayList<>();//liste pour stocker les coordonnées temporairement
-                    if (map[Adlez.getY()][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()][Adlez.getX()].getClass()!=Plancher.class){
-                        //du moment que ce n'est pas un mur ou un plancher, on peut interagir avec
-                        if (map[Adlez.getY()][Adlez.getX()].getClass()==Pancarte.class){
-                            messages.afficher();}//si c'est pancarte, un message d'affiche
-                        else if (map[Adlez.getY()][Adlez.getX()].getClass()==Teleporteur.class){//si c'est téléporteur
-                            boite.add(Adlez.getX());boite.add(Adlez.getY());//stocke les données x y de Adlez actuellement
-                            Adlez.setY(map[boite.get(1)][boite.get(0)].getTpy());
-                            //change le Y de Adlez (avec les données du téléporteur ou Adlez était).
-                            //Mais vu que après setY les coordonnées de Adlez change, utiliser getY et getX ne va pas marcher
-                            Adlez.setX(map[boite.get(1)][boite.get(0)].getTpx());
-                            map[Adlez.getY()][Adlez.getX()].setHero();
-                            //aux coordonnées de la classe téléporteur, afficher &
-                            map[boite.get(1)][boite.get(0)].revenir();
-                            //et effacer l'endroit ou Adlez était avant.
-                            boite.clear();//vide la boite pour la suite.
-                        }
-                    }
-                    else if (map[Adlez.getY()][Adlez.getX()+1].getClass()!=Mur.class&&map[Adlez.getY()][Adlez.getX()+1].getClass()!=Plancher.class){
-                        //même chose, à gauche
-                        if (map[Adlez.getY()][Adlez.getX()+1].getClass()==Pancarte.class){
-                            messages.afficher();}
-                        else if (map[Adlez.getY()][Adlez.getX()+1].getClass()==Teleporteur.class){
-                            boite.add(Adlez.getX());boite.add(Adlez.getY());
-                            Adlez.setY(map[boite.get(1)][boite.get(0)+1].getTpy());
-                            Adlez.setX(map[boite.get(1)][boite.get(0)+1].getTpx());
-                            map[Adlez.getY()][Adlez.getX()].setHero();
-                            map[boite.get(1)][boite.get(0)].revenir();
-                            boite.clear();
-
-                        }else if (map[Adlez.getY()][Adlez.getX()+1].getClass()==Tresor.class){
-                            //vu que Adlez ne peut pas marcher sur un trésor, il n'est pas au premier if
-                            map[Adlez.getY()][Adlez.getX()+1].setItem(niveau,Adlez.getX()+1,Adlez.getY());
-                            //lit le fichier pour voir c'est quoi l'item de cette coordonée.
-                            map[Adlez.getY()][Adlez.getX()+1].utiliser(Adlez);
-                            //l'utilise sur Adlez
-                        }
-                    }else if (map[Adlez.getY()][Adlez.getX()-1].getClass()!=Mur.class&&map[Adlez.getY()][Adlez.getX()-1].getClass()!=Plancher.class){
-                        if (map[Adlez.getY()][Adlez.getX()-1].getClass()==Pancarte.class){
-                            messages.afficher();}
-                        else if (map[Adlez.getY()][Adlez.getX()-1].getClass()==Teleporteur.class){
-                            boite.add(Adlez.getX());boite.add(Adlez.getY());
-                            Adlez.setY(map[boite.get(1)][boite.get(0)-1].getTpy());
-                            Adlez.setX(map[boite.get(1)][boite.get(0)-1].getTpx());
-                            map[Adlez.getY()][Adlez.getX()].setHero();
-                            map[boite.get(1)][boite.get(0)].revenir();
-                            boite.clear();
-                        }else if (map[Adlez.getY()][Adlez.getX()-1].getClass()==Tresor.class){
-                            map[Adlez.getY()][Adlez.getX()-1].setItem(niveau,Adlez.getX()-1,Adlez.getY());
-                            map[Adlez.getY()][Adlez.getX()-1].utiliser(Adlez);
-                        }
-                    }else if (map[Adlez.getY()+1][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()+1][Adlez.getX()].getClass()!=Plancher.class){
-                        if (map[Adlez.getY()+1][Adlez.getX()].getClass()==Pancarte.class){
-                            messages.afficher();}
-                        else if (map[Adlez.getY()+1][Adlez.getX()].getClass()==Teleporteur.class){
-                            boite.add(Adlez.getX());boite.add(Adlez.getY());
-                            Adlez.setY(map[boite.get(1)+1][boite.get(0)].getTpy());
-                            Adlez.setX(map[boite.get(1)+1][boite.get(0)].getTpx());
-                            map[Adlez.getY()][Adlez.getX()].setHero();
-                            map[boite.get(1)][boite.get(0)].revenir();
-                            boite.clear();
-                        }else if (map[Adlez.getY()+1][Adlez.getX()].getClass()==Tresor.class){
-                            map[Adlez.getY()+1][Adlez.getX()].setItem(niveau,Adlez.getX(),Adlez.getY()+1);
-                            map[Adlez.getY()+1][Adlez.getX()].utiliser(Adlez);
-                        }
-                    }else if (map[Adlez.getY()-1][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()-1][Adlez.getX()].getClass()!=Plancher.class){
-                        if (map[Adlez.getY()-1][Adlez.getX()].getClass()==Pancarte.class){
-                            messages.afficher();}
-                        else if (map[Adlez.getY()-1][Adlez.getX()].getClass()==Teleporteur.class){
-                            boite.add(Adlez.getX());boite.add(Adlez.getY());
-                            Adlez.setY(map[boite.get(1)-1][boite.get(0)].getTpy());
-                            Adlez.setX(map[boite.get(1)-1][boite.get(0)].getTpx());
-                            map[Adlez.getY()][Adlez.getX()].setHero();
-                            map[boite.get(1)][boite.get(0)].revenir();
-                            boite.clear();
-                        }else if (map[Adlez.getY()-1][Adlez.getX()].getClass()==Tresor.class){
-                            map[Adlez.getY()-1][Adlez.getX()].setItem(niveau,Adlez.getX(),Adlez.getY()-1);
-                            map[Adlez.getY()-1][Adlez.getX()].utiliser(Adlez);
-                        }
-                    }
+                    toucher(map,Adlez,messages,niveau);//voir la méthode
                     if (niveau==6){//après le 'c', vérifie si le niveau est 6. Si oui, vérifie si Adlez a ouvert un trésor
                         //avec un cristal dedans. Si oui, quit est true et le jeu finit.
                         if (Adlez.getCristaux()==6){
@@ -268,6 +190,89 @@ public class Partie {
         MORT,
         VIVANT,
         GAMECLEAR
+    }
+    public static void toucher (Tuile [][]map, Heros Adlez, Messages messages, int niveau){
+        ArrayList<Integer> boite=new ArrayList<>();//liste pour stocker les coordonnées temporairement
+        if (map[Adlez.getY()][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()][Adlez.getX()].getClass()!=Plancher.class){
+            //du moment que ce n'est pas un mur ou un plancher, on peut interagir avec
+            if (map[Adlez.getY()][Adlez.getX()].getClass()==Pancarte.class){
+                messages.afficher();}//si c'est pancarte, un message d'affiche
+            else if (map[Adlez.getY()][Adlez.getX()].getClass()==Teleporteur.class){//si c'est téléporteur
+                boite.add(Adlez.getX());boite.add(Adlez.getY());//stocke les données x y de Adlez actuellement
+                Adlez.setY(map[boite.get(1)][boite.get(0)].getTpy());
+                //change le Y de Adlez (avec les données du téléporteur ou Adlez était).
+                //Mais vu que après setY les coordonnées de Adlez change, utiliser getY et getX ne va pas marcher
+                Adlez.setX(map[boite.get(1)][boite.get(0)].getTpx());
+                map[Adlez.getY()][Adlez.getX()].setHero();
+                //aux coordonnées de la classe téléporteur, afficher &
+                map[boite.get(1)][boite.get(0)].revenir();
+                //et effacer l'endroit ou Adlez était avant.
+                boite.clear();//vide la boite pour la suite.
+            }
+        }
+        else if (map[Adlez.getY()][Adlez.getX()+1].getClass()!=Mur.class&&map[Adlez.getY()][Adlez.getX()+1].getClass()!=Plancher.class){
+            //même chose, à gauche
+            if (map[Adlez.getY()][Adlez.getX()+1].getClass()==Pancarte.class){
+                messages.afficher();}
+            else if (map[Adlez.getY()][Adlez.getX()+1].getClass()==Teleporteur.class){
+                boite.add(Adlez.getX());boite.add(Adlez.getY());
+                Adlez.setY(map[boite.get(1)][boite.get(0)+1].getTpy());
+                Adlez.setX(map[boite.get(1)][boite.get(0)+1].getTpx());
+                map[Adlez.getY()][Adlez.getX()].setHero();
+                map[boite.get(1)][boite.get(0)].revenir();
+                boite.clear();
+
+            }else if (map[Adlez.getY()][Adlez.getX()+1].getClass()==Tresor.class){
+                //vu que Adlez ne peut pas marcher sur un trésor, il n'est pas au premier if
+                map[Adlez.getY()][Adlez.getX()+1].setItem(niveau,Adlez.getX()+1,Adlez.getY());
+                //lit le fichier pour voir c'est quoi l'item de cette coordonée.
+                map[Adlez.getY()][Adlez.getX()+1].utiliser(Adlez);
+                //l'utilise sur Adlez
+            }
+        }else if (map[Adlez.getY()][Adlez.getX()-1].getClass()!=Mur.class&&map[Adlez.getY()][Adlez.getX()-1].getClass()!=Plancher.class){
+            if (map[Adlez.getY()][Adlez.getX()-1].getClass()==Pancarte.class){
+                messages.afficher();}
+            else if (map[Adlez.getY()][Adlez.getX()-1].getClass()==Teleporteur.class){
+                boite.add(Adlez.getX());boite.add(Adlez.getY());
+                Adlez.setY(map[boite.get(1)][boite.get(0)-1].getTpy());
+                Adlez.setX(map[boite.get(1)][boite.get(0)-1].getTpx());
+                map[Adlez.getY()][Adlez.getX()].setHero();
+                map[boite.get(1)][boite.get(0)].revenir();
+                boite.clear();
+            }else if (map[Adlez.getY()][Adlez.getX()-1].getClass()==Tresor.class){
+                map[Adlez.getY()][Adlez.getX()-1].setItem(niveau,Adlez.getX()-1,Adlez.getY());
+                map[Adlez.getY()][Adlez.getX()-1].utiliser(Adlez);
+            }
+        }else if (map[Adlez.getY()+1][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()+1][Adlez.getX()].getClass()!=Plancher.class){
+            if (map[Adlez.getY()+1][Adlez.getX()].getClass()==Pancarte.class){
+                messages.afficher();}
+            else if (map[Adlez.getY()+1][Adlez.getX()].getClass()==Teleporteur.class){
+                boite.add(Adlez.getX());boite.add(Adlez.getY());
+                Adlez.setY(map[boite.get(1)+1][boite.get(0)].getTpy());
+                Adlez.setX(map[boite.get(1)+1][boite.get(0)].getTpx());
+                map[Adlez.getY()][Adlez.getX()].setHero();
+                map[boite.get(1)][boite.get(0)].revenir();
+                boite.clear();
+            }else if (map[Adlez.getY()+1][Adlez.getX()].getClass()==Tresor.class){
+                map[Adlez.getY()+1][Adlez.getX()].setItem(niveau,Adlez.getX(),Adlez.getY()+1);
+                map[Adlez.getY()+1][Adlez.getX()].utiliser(Adlez);
+            }
+        }else if (map[Adlez.getY()-1][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()-1][Adlez.getX()].getClass()!=Plancher.class){
+            if (map[Adlez.getY()-1][Adlez.getX()].getClass()==Pancarte.class){
+                messages.afficher();}
+            else if (map[Adlez.getY()-1][Adlez.getX()].getClass()==Teleporteur.class){
+                boite.add(Adlez.getX());boite.add(Adlez.getY());
+                Adlez.setY(map[boite.get(1)-1][boite.get(0)].getTpy());
+                Adlez.setX(map[boite.get(1)-1][boite.get(0)].getTpx());
+                map[Adlez.getY()][Adlez.getX()].setHero();
+                map[boite.get(1)][boite.get(0)].revenir();
+                boite.clear();
+            }else if (map[Adlez.getY()-1][Adlez.getX()].getClass()==Tresor.class){
+                map[Adlez.getY()-1][Adlez.getX()].setItem(niveau,Adlez.getX(),Adlez.getY()-1);
+                map[Adlez.getY()-1][Adlez.getX()].utiliser(Adlez);
+            }
+        }
+
     }
 
 }
