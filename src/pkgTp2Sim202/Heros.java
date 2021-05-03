@@ -3,6 +3,7 @@ package pkgTp2Sim202;
 import java.util.ArrayList;
 
 public class Heros extends Personnage {
+
     private ArrayList <Integer> position;
     private int vie=6;
     private int force=1;
