@@ -33,7 +33,8 @@ public class Partie {
                 //setPosition s'agit de update la classe Heros pour Adlez, qu'elle est présentemment à cette position
                 donnesMonstres = floor.getDonnesMonstres();
                 map[positionJoueur.get(1)][positionJoueur.get(0)].setHero();
-                //setHero va changer le symbole de cette tuile en & (ceux qui le peuvent)(voir Plancher pour plus de détails)
+                //setHero va changer le symbole de cette tuile en & (ceux qui le peuvent)(voir Plancher pour plus
+                // de détails)
                 if (donnesMonstres.size() != 0) {//s'il y a un monstre
                     int info=0;
                     for (int i = 0; i < donnesMonstres.size(); i += 4) {
@@ -100,7 +101,8 @@ public class Partie {
                 }
                 else if (actionEnChar[i]=='c'){
                     toucher(map,Adlez,messages,niveau);//voir la méthode
-                    if (niveau==6){//après le 'c', vérifie si le niveau est 6. Si oui, vérifie si Adlez a ouvert un trésor
+                    if (niveau==6){//après le 'c', vérifie si le niveau est 6. Si oui, vérifie si Adlez a ouvert
+                        // un trésor
                         //avec un cristal dedans. Si oui, quit est true et le jeu finit.
                         if (Adlez.getCristaux()==6){
                             quit=true;
@@ -210,7 +212,8 @@ public class Partie {
                 boite.clear();//vide la boite pour la suite.
             }
         }
-        else if (map[Adlez.getY()][Adlez.getX()+1].getClass()!=Mur.class&&map[Adlez.getY()][Adlez.getX()+1].getClass()!=Plancher.class){
+        else if (map[Adlez.getY()][Adlez.getX()+1].getClass()!=Mur.class&&map[Adlez.getY()][Adlez.getX()+1].
+                getClass()!=Plancher.class){
             //même chose, à gauche
             if (map[Adlez.getY()][Adlez.getX()+1].getClass()==Pancarte.class){
                 messages.afficher();}
@@ -229,7 +232,8 @@ public class Partie {
                 map[Adlez.getY()][Adlez.getX()+1].utiliser(Adlez);
                 //l'utilise sur Adlez
             }
-        }else if (map[Adlez.getY()][Adlez.getX()-1].getClass()!=Mur.class&&map[Adlez.getY()][Adlez.getX()-1].getClass()!=Plancher.class){
+        }else if (map[Adlez.getY()][Adlez.getX()-1].getClass()!=Mur.class&&map[Adlez.getY()]
+                [Adlez.getX()-1].getClass()!=Plancher.class){
             if (map[Adlez.getY()][Adlez.getX()-1].getClass()==Pancarte.class){
                 messages.afficher();}
             else if (map[Adlez.getY()][Adlez.getX()-1].getClass()==Teleporteur.class){
@@ -243,7 +247,8 @@ public class Partie {
                 map[Adlez.getY()][Adlez.getX()-1].setItem(niveau,Adlez.getX()-1,Adlez.getY());
                 map[Adlez.getY()][Adlez.getX()-1].utiliser(Adlez);
             }
-        }else if (map[Adlez.getY()+1][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()+1][Adlez.getX()].getClass()!=Plancher.class){
+        }else if (map[Adlez.getY()+1][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()+1][Adlez.getX()]
+                .getClass()!=Plancher.class){
             if (map[Adlez.getY()+1][Adlez.getX()].getClass()==Pancarte.class){
                 messages.afficher();}
             else if (map[Adlez.getY()+1][Adlez.getX()].getClass()==Teleporteur.class){
@@ -257,7 +262,8 @@ public class Partie {
                 map[Adlez.getY()+1][Adlez.getX()].setItem(niveau,Adlez.getX(),Adlez.getY()+1);
                 map[Adlez.getY()+1][Adlez.getX()].utiliser(Adlez);
             }
-        }else if (map[Adlez.getY()-1][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()-1][Adlez.getX()].getClass()!=Plancher.class){
+        }else if (map[Adlez.getY()-1][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()-1][Adlez.getX()]
+                .getClass()!=Plancher.class){
             if (map[Adlez.getY()-1][Adlez.getX()].getClass()==Pancarte.class){
                 messages.afficher();}
             else if (map[Adlez.getY()-1][Adlez.getX()].getClass()==Teleporteur.class){

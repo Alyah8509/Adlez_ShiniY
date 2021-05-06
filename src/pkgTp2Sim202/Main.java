@@ -26,6 +26,7 @@ public class Main {
 
         /**
          * Affiche des messages pré-déterminés
+         * Mis en static pour l'utiliser en méthode
          */
 
         public static void afficherIntro(){
@@ -64,7 +65,10 @@ public class Main {
             s.nextLine();
         }
 
-        public static void afficherVictoire () {
+    /**
+     * Affiche la victoire
+     */
+    public static void afficherVictoire () {
             System.out.println("          Félicitations! Vous avez tous les cristeaux magiques!");
             System.out.println("                        Le monde est sauvé!");
             System.out.println("                           Δ");
@@ -75,7 +79,10 @@ public class Main {
             System.out.println("                          / \\");
         }
 
-        public static void afficherDefaite () {
+    /**
+     * Affiche la défaite
+     */
+    public static void afficherDefaite () {
             System.out.println("          Nooooon! Adlez est morte avant d'avoir collecté les");
             System.out.println("                       cristeaux magiques...");
             System.out.println();

@@ -14,7 +14,7 @@ public class Tresor extends Tuile {
 
     /**
      * voir à la classe item (et ses sous-classes). Mais en bref il utilise l'item
-     * @param Adlez
+     * @param Adlez la personne qui l'utilise
      */
     public void utiliser (Heros Adlez){
         item[0].utiliser(Adlez);
@@ -22,12 +22,12 @@ public class Tresor extends Tuile {
     }
 
     /**
-     * Dédide de l'item. Lit le fichier (environ la même méthode que dans niveau)
+     * Décide de l'item. Lit le fichier (environ la même méthode que dans niveau)
      * regarde si les coordonnées x et y correspondent à celui du fichier.
      * S'il correspond, il lit un charactère pour décider ce que l'item est
      * puis il le stocke dans un tableau item
-     * @param niveau
-     * @param x
+     * @param niveau le chiffre du fichier
+     * @param x coordonnées
      * @param y
      */
     public void setItem (int niveau, int x, int y){

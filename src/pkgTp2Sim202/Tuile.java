@@ -2,6 +2,7 @@ package pkgTp2Sim202;
 
 public abstract class Tuile {
     //quelques variables ne sont pas utilisé: ce sont juste tous les variables que les sous-classes utilisent
+    // (pour faciliter le debug)
     private String symbole;
     private String symbole2;
     private String act;
@@ -13,7 +14,7 @@ public abstract class Tuile {
     private boolean tp;
     private Item [] item;
     private boolean ouvert;
-//beaucoup de ces méthodes sont vides: ils ne sont pas utlisés mais plutôt overr
+//beaucoup de ces méthodes sont vides: ils ne sont pas utlisés mais plutôt overridés
     /**
      * retourne le symbole de la tuile
      * @return
@@ -23,7 +24,7 @@ public abstract class Tuile {
     }
 
     /**
-     * montrer & au lieu du symbole
+     * montrer "&" au lieu du symbole
      */
     public void setHero (){
         if (vide){
@@ -32,7 +33,7 @@ public abstract class Tuile {
     }
 
     /**
-     * utiliser est seulement pour trésor, mais il doit être dans tuile aussi pour être utilisé.
+     * utiliser est seulement pour trésor, mais il doit être dans tuile aussi pour être appelé.
      * Voir dans trésor pour voir ce qu'il fait
      * @param Adlez
      */
@@ -51,14 +52,14 @@ public abstract class Tuile {
 
     /**
      * montre s'il y a un monstre sur la case
-     * @param personnage
+     * @param personnage true s'il y a quelqu'un, false sinon
      */
     public void setPersonnage (boolean personnage){
         this.personnage=personnage;
     }
 
     /**
-     * si on peut piler dessus, remplace le symbole par @
+     * si on peut piler dessus, remplace le symbole par "@"
      */
     public void setMonstre(){
         if (vide){
@@ -75,7 +76,7 @@ public abstract class Tuile {
 
     /**
      * montre si on peut piler dessus ou non
-     * @return
+     * @return oui ou non
      */
     public boolean getVide (){return vide;}
 
@@ -98,7 +99,7 @@ public abstract class Tuile {
 
     /**
      * Change le symbole (voir le combat dans Partie)
-     * @param symbole
+     * @param symbole à changer
      */
     public void setSymbole (String symbole){this.symbole=symbole;}
 }

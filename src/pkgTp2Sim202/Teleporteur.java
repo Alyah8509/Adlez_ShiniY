@@ -22,7 +22,7 @@ public class Teleporteur extends Tuile {
 
     /**
      * montre s'il y avait un monstre sur cette case
-     * @param personnage
+     * @param personnage false si rien n'est là, true si un monstre est là.
      */
     public void setPersonnage (boolean personnage){
         this.personnage=personnage;
@@ -37,7 +37,7 @@ public class Teleporteur extends Tuile {
     }
 
     /**
-     * remplace symbole par &
+     * remplace symbole par "&"
      */
     public void setHero() {
         if (vide) {
@@ -46,7 +46,7 @@ public class Teleporteur extends Tuile {
     }
 
     /**
-     * remplace symbole par @
+     * remplace symbole par "@"
      */
 
     public void setMonstre() {
@@ -70,7 +70,7 @@ public class Teleporteur extends Tuile {
 
     /**
      * si on peut marcher dessus
-     * @return
+     * @return oui ou non
      */
     public boolean getVide() {
         return vide;
@@ -95,7 +95,7 @@ public class Teleporteur extends Tuile {
 
     /**
      * Change le symbole
-     * @param symbole
+     * @param symbole String à remplacer
      */
     public void setSymbole (String symbole){this.symbole=symbole;}
 }

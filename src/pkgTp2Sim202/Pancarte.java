@@ -19,7 +19,7 @@ public class Pancarte extends Tuile {
     }
 
     /**
-     * affiche & au lieu du symbole
+     * affiche "&" au lieu du symbole
      */
     public void setHero (){
         if (vide){
@@ -29,7 +29,7 @@ public class Pancarte extends Tuile {
 
     /**
      * Change le symbole
-     * @param symbole
+     * @param symbole le symbole à changer
      */
     public void setSymbole (String symbole){this.symbole=symbole;}
 
@@ -44,7 +44,7 @@ public class Pancarte extends Tuile {
 
     /**
      * monstre s'il y avait un monstre sur la case
-     * @param personnage
+     * @param personnage si monstre part (false) ou arrive (true)
      */
     public void setPersonnage (boolean personnage){
         this.personnage=personnage;

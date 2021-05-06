@@ -41,14 +41,14 @@ public class Heros extends Personnage {
 
     /**
      * Change la position dans la liste
-     * @param position
+     * @param position la position à modifier
      */
     public void setPosition (ArrayList <Integer> position){
         this.position=position;
     }
 
     /**
-     * retourne le premier chiffre dans la liste
+     * retourne le premier chiffre dans la liste, donc la coordonnée x
      * @return
      */
     public int getX (){
@@ -56,7 +56,7 @@ public class Heros extends Personnage {
     }
 
     /**
-     * retourne le deuxième chiffre de la liste
+     * retourne le deuxième chiffre de la liste, donc y
      * @return
      */
     public int getY (){
@@ -64,8 +64,8 @@ public class Heros extends Personnage {
     }
 
     /**
-     * Change le premier chiffre de la liste
-     * @param x
+     * Change le premier chiffre de la liste, change x
+     * @param x le nombre à utiliser
      */
     public void setX (int x){
         position.set(0, x);
@@ -73,6 +73,7 @@ public class Heros extends Personnage {
 
     /**
      * Change le deuxième chiffre de la liste
+     * change y
      * @param y
      */
     public void setY (int y){
@@ -81,7 +82,7 @@ public class Heros extends Personnage {
 
     /**
      * Afficher la carte 2d
-     * @param map
+     * @param map la carte à afficher
      */
     public void afficher (Tuile [][] map){
         System.out.println("Vies: " + vie + "/6        Force: " + force + "            Cristaux: " + cristaux);
@@ -95,8 +96,7 @@ public class Heros extends Personnage {
 
     /**
      * Diminuer la vie selon la force du monstre
-     * @param combien
-     * @return
+     * @param combien combiend de vie à diminuer (force du monstre)
      */
     public void diminuerVie (int combien){
         vie-=combien;
@@ -104,7 +104,7 @@ public class Heros extends Personnage {
 
     /**
      * Attaquer le monstre selon la force
-     * @param monstre
+     * @param monstre le monstre à attaquer
      */
     public void attaquer (Monstre monstre){
         monstre.diminuerVie(force);
