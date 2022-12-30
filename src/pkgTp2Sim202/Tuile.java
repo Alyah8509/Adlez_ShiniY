@@ -1,6 +1,8 @@
 package pkgTp2Sim202;
 
-public abstract class Tuile {
+import java.io.Serializable;
+
+public abstract class Tuile implements Serializable {
     //quelques variables ne sont pas utilisé: ce sont juste tous les variables que les sous-classes utilisent
     // (pour faciliter le debug)
     private String symbole;
@@ -19,14 +21,20 @@ public abstract class Tuile {
      * retourne le symbole de la tuile
      * @return
      */
-    public String getSymbole (){
+    protected String getSymbole (){
         return symbole;
+    }
+
+    /**
+     * Change le String Act (Pour trésor seulement)
+     */
+    protected void setAct (){
     }
 
     /**
      * montrer "&" au lieu du symbole
      */
-    public void setHero (){
+    protected void setHero (){
         if (vide){
             symbole=adlez;
         }
@@ -37,7 +45,7 @@ public abstract class Tuile {
      * Voir dans trésor pour voir ce qu'il fait
      * @param Adlez
      */
-        public void utiliser (Heros Adlez){
+        protected void utiliser (Heros Adlez){
         }
 
     /**
@@ -46,7 +54,7 @@ public abstract class Tuile {
      * @param x
      * @param y
      */
-    public void setItem (int niveau, int x, int y){
+    protected void setItem (int niveau, int x, int y){
 
     }
 
@@ -54,14 +62,14 @@ public abstract class Tuile {
      * montre s'il y a un monstre sur la case
      * @param personnage true s'il y a quelqu'un, false sinon
      */
-    public void setPersonnage (boolean personnage){
+    protected void setPersonnage (boolean personnage){
         this.personnage=personnage;
     }
 
     /**
      * si on peut piler dessus, remplace le symbole par "@"
      */
-    public void setMonstre(){
+    protected void setMonstre(){
         if (vide){
             symbole=monstre;
         }
@@ -70,7 +78,7 @@ public abstract class Tuile {
     /**
      * il n'y a plus de personnage sur la case donc il revient à son symbole original
      */
-    public void revenir (){
+    protected void revenir (){
             symbole=act;
     }
 
@@ -78,14 +86,14 @@ public abstract class Tuile {
      * montre si on peut piler dessus ou non
      * @return oui ou non
      */
-    public boolean getVide (){return vide;}
+    protected boolean getVide (){return vide;}
 
 
     /**
      * retourne x du téléporteur
      * @return
      */
-    public int getTpx (){
+    protected int getTpx (){
         return x;
     }
 
@@ -93,7 +101,7 @@ public abstract class Tuile {
      * retourne y du téléporteur
      * @return
      */
-    public int getTpy(){
+    protected int getTpy(){
         return y;
     }
 
@@ -101,5 +109,5 @@ public abstract class Tuile {
      * Change le symbole (voir le combat dans Partie)
      * @param symbole à changer
      */
-    public void setSymbole (String symbole){this.symbole=symbole;}
+    protected void setSymbole (String symbole){this.symbole=symbole;}
 }

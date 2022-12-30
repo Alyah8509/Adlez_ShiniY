@@ -26,7 +26,7 @@ public class Niveau {
      * @param niveau le numéro du fichier en question
      * @return retourne la carte 2d de Tuile
      */
-    public Tuile[][] lire(int niveau) {
+    protected Tuile[][] lire(int niveau) {
         positionJoueur.clear();positionAutres.clear();longueur=0;largeur=0;monstres.clear();donnesMonstres.clear();
         donnesPancartes.clear();messagePancarte.clear();donnesTresor.clear();donnesTp.clear();
         //reset tous les Arraylist au cas ou
@@ -211,7 +211,7 @@ public class Niveau {
      * retourne positionJoueur
      * @return
      */
-    public ArrayList<Integer> getPositionJoueur() {
+    protected ArrayList<Integer> getPositionJoueur() {
         //la place d'Adlez et des monstres est mis après (dans partie) vu qu'il n'y a pas de tuile heros ni monstre
         return positionJoueur;
     }
@@ -220,7 +220,7 @@ public class Niveau {
      * retourne donnesTp
      * @return
      */
-    public ArrayList <Integer> getDonnesTp (){
+    protected ArrayList <Integer> getDonnesTp (){
         return donnesTp;
     }
 
@@ -228,7 +228,7 @@ public class Niveau {
      * retourne donneesMonstre
      * @return
      */
-    public ArrayList<Integer> getDonnesMonstres (){
+    protected ArrayList<Integer> getDonnesMonstres (){
         return donnesMonstres;
     }
 
@@ -236,13 +236,13 @@ public class Niveau {
      * Retourne donneesPancartes
      * @return
      */
-    public ArrayList<Integer> getDonnesPancartes (){return donnesPancartes;}
+    protected ArrayList<Integer> getDonnesPancartes (){return donnesPancartes;}
 
     /**
      * Retourne le message pour afficher
      * @return
      */
-    public ArrayList<String>getMessagePancarte(){return messagePancarte;}
+    protected ArrayList<String>getMessagePancarte(){return messagePancarte;}
     /**
      * transforme un String du tableau en arraylist de char pour l'analyser plus facilement.
      * @param chiffre dépend de quelle position du tableau à transformer
@@ -251,7 +251,7 @@ public class Niveau {
      * @param tuiles le tableau de char
      * @return retourne positionAutres (une liste)
      */
-    private static ArrayList<Character> LigneEnArray (int chiffre,String[] tableauTemporaire,
+    private ArrayList<Character> LigneEnArray (int chiffre,String[] tableauTemporaire,
                                                       ArrayList<Character> positionAutres, char [] tuiles){
         positionAutres.clear();//méthode pour passer le tableau temporaire en Arraylist. PositionAutres est
         // un Arraylist donc il fait le vider avant
@@ -278,7 +278,7 @@ public class Niveau {
      * @param positionJoueur la liste pour stocker les chiffres
      * @return retourne la liste
      */
-    private static ArrayList<Integer> CoordonneesAdlez (String ligne, ArrayList <Integer> positionJoueur){
+    private ArrayList<Integer> CoordonneesAdlez (String ligne, ArrayList <Integer> positionJoueur){
         for (int i = 0; i < 2; i++) {//méthode qui add les coordonnées de Adlez
             String[] positionString = ligne.split(",");//position String stocke 2 choses: les coordonnées
             // x et y de Adlez
@@ -295,7 +295,7 @@ public class Niveau {
      * @param carte la carte 2d
      * @return retourne la carte
      */
-    private static Tuile[][] lireNiv(int t,ArrayList <Character> positionAutres,int longueur,Tuile [][]carte){
+    private Tuile[][] lireNiv(int t,ArrayList <Character> positionAutres,int longueur,Tuile [][]carte){
                             for (int a = 0; a < longueur; a++) {//avance de gauche à droite
                                 if (positionAutres.get(a).equals('#')) {
                                     carte[t][a] = new Mur();//vu que c'est une carte 2d de tuile, alors ce
@@ -317,7 +317,7 @@ public class Niveau {
      * @param donnesTresor la liste qui contient les données du trésor
      * @return retourne donnesTresor
      */
-    private static ArrayList <Integer> CoordonnesTresor (char []convertisseur,ArrayList<Character>positionAutres,
+    private ArrayList <Integer> CoordonnesTresor (char []convertisseur,ArrayList<Character>positionAutres,
                                                          int i,String [] tableauTemporaire, char []tuiles,ArrayList
                                                                  <Integer> donnesTresor){
         //la même chose que monstre mais avec deux chiffres au lieu de 4.
@@ -356,7 +356,7 @@ public class Niveau {
      * @param donnes liste pour les coordonnées
      * @return retourne les coordonnées importants
      */
-    private static ArrayList<Integer>
+    private ArrayList<Integer>
     CoordonnesPlusieusDonnees(char []convertisseur,ArrayList<Character>positionAutres,
                               int i,String [] tableauTemporaire, char []tuiles,ArrayList <Integer> donnes){
         //c'est un peu plus compliqué car ça se peut que les coordonnées soient à 2 chiffres

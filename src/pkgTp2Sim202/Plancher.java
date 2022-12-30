@@ -1,6 +1,8 @@
 package pkgTp2Sim202;
 
-public class Plancher extends Tuile{
+import java.io.Serializable;
+
+public class Plancher extends Tuile implements Serializable {
     private String symbole=" ";
     //Symbole est un String qui change dépendamment des personnages, donc il est variable
     private String act=" ";
@@ -15,7 +17,7 @@ public class Plancher extends Tuile{
      * retourne symbole pour l'affichage de la carte
      * @return
      */
-    public String getSymbole (){
+    protected String getSymbole (){
 
         return symbole;
     }
@@ -23,7 +25,7 @@ public class Plancher extends Tuile{
     /**
      * montrer que Adlez est ici (remplace symbole par "&")
      */
-    public void setHero (){
+    protected void setHero (){
         //le boolean vide est la confimation de si on peut piler dessus ou non. Pour mur elle serait false par exemple
         if (vide){
             //remplace le symbole d'espace par &
@@ -35,7 +37,7 @@ public class Plancher extends Tuile{
      * montre qu'il y a un monstre sur cette case
      * @param personnage true si le monstre arrive, false s'il part
      */
-    public void setPersonnage (boolean personnage){
+    protected void setPersonnage (boolean personnage){
         //il indique s'il y a un monstre dans cette tuile. Utilisé plus tard
         this.personnage=personnage;
     }
@@ -43,7 +45,7 @@ public class Plancher extends Tuile{
     /**
      * montre le symbole "@" au lieu de l'espace vu que le monstre est sur la tuile
      */
-    public void setMonstre(){
+    protected void setMonstre(){
         //même chose avec @
         if (vide){
             symbole=monstre;
@@ -53,7 +55,7 @@ public class Plancher extends Tuile{
     /**
      * la case va revenir a son etat d'origine
      */
-    public void revenir (){
+    protected void revenir (){
         //s'il y avait un monstre sur la place ou Adlez a pilé, alors le système s'en souvient et quand Adlez part
         // le monstre est toujours là
         if (personnage){
@@ -68,11 +70,11 @@ public class Plancher extends Tuile{
      * voir si on peut piler dessus, retourne oui ou non
      * @return
      */
-    public boolean getVide (){return vide;}//voir si on peut piler sur cette tuile
+    protected boolean getVide (){return vide;}//voir si on peut piler sur cette tuile
 
     /**
      * Change le symbole
      * @param symbole
      */
-    public void setSymbole (String symbole){this.symbole=symbole;}
+    protected void setSymbole (String symbole){this.symbole=symbole;}
 }

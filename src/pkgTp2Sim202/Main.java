@@ -1,20 +1,62 @@
 package pkgTp2Sim202;
 
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        int niveau = 1;//commence au niveau 1
-        boolean fini=false;//la partie n'est pas fini
+        Scanner sc=new Scanner(System.in);
         afficherIntro();//afficher l'intro
+        boolean sauve=false;//Il n'y a pas de sauvegarde au début
+        int niveau=0;//initialise niveau
         Partie jeu = new Partie();//creer une nouvelle partie
+        boolean fini=false;//la partie n'est pas fini
+        System.out.println("charger la dernière partie?");
+        System.out.println("1-Oui");
+        System.out.println("2-Non");
+        String choix=sc.nextLine();
+        if (choix.equals("1")){
+            sauve=true;//Pour la lecture des fichiers dans Partie
+            try {
+                FileInputStream fos=new FileInputStream("partie.sav");
+                ObjectInputStream ois=new ObjectInputStream(fos);
+                ArrayList <Integer> ouvre=(ArrayList<Integer>)ois.readObject();
+                jeu.setOuvre(ouvre);//répète de processus de lire et de remplacer
+                niveau=(int)ois.readObject();
+                Heros adlez=(Heros)ois.readObject();
+                jeu.setAdlez(adlez);
+                if (!(boolean)ois.readObject()){//Si il n'y a aucun monstre
+
+                }else {
+                ArrayList<Monstre> monstres=(ArrayList<Monstre>)ois.readObject();
+                jeu.setMonstres(monstres);}
+                if (!(boolean)ois.readObject()){
+
+                }else {
+                    ArrayList <String> message=(ArrayList<String>) ois.readObject();
+                    jeu.setMessages(message);
+                }
+                ois.close();//ferme
+
+            }catch (Exception e){
+                System.out.println("Erreur!Vérifiez si vous avez bien sauvegardé");
+                fini=true;
+            }
+        }
+        if (sauve){//le niveau serait déjà décidé si c'est une partie sauvegardé
+
+        }else {
+            niveau = 1;//sinon, il commence au niveau 1
+        }
         while (!fini){//tant que ce n'est pas fini
-        jeu.jouer(niveau);//jouer au niveau decide
-        fini=jeu.getQuit();//si le joueur a choisi quit, le boolean quit serait true. donc fini=true
+        jeu.jouer(niveau,sauve);//jouer au niveau decide
+        fini=jeu.getQuit();//si le joueur a choisi quit, le boolean quit serait true. Donc fini=true
         niveau++;//passe au niveau prochain
-        if (jeu.getActuelle()== Partie.Vie.GAMECLEAR){//si la partie est cleared
+            sauve=false;//ce n'est plus un niveau sauvegardé peu importe (si Adlez passe au prochain niveau)
+        if (jeu.getActuelle()== Partie.Vie.GAMECLEAR){//si la partie est clear
             afficherVictoire();
             fini=true;
         }else if (jeu.getActuelle()== Partie.Vie.MORT){
@@ -29,7 +71,7 @@ public class Main {
          * Mis en static pour l'utiliser en méthode
          */
 
-        public static void afficherIntro(){
+        private static void afficherIntro(){
             System.out.println(
                     "                        /=\\\n" +
                             "                        |||\n" +
@@ -68,7 +110,7 @@ public class Main {
     /**
      * Affiche la victoire
      */
-    public static void afficherVictoire () {
+    private static void afficherVictoire () {
             System.out.println("          Félicitations! Vous avez tous les cristeaux magiques!");
             System.out.println("                        Le monde est sauvé!");
             System.out.println("                           Δ");
@@ -82,7 +124,7 @@ public class Main {
     /**
      * Affiche la défaite
      */
-    public static void afficherDefaite () {
+    private static void afficherDefaite () {
             System.out.println("          Nooooon! Adlez est morte avant d'avoir collecté les");
             System.out.println("                       cristeaux magiques...");
             System.out.println();

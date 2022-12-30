@@ -1,6 +1,8 @@
 package pkgTp2Sim202;
 
-public class Monstre extends Personnage {
+import java.io.Serializable;
+
+public class Monstre extends Personnage implements Serializable {
     private int attaque;
     private int hp;
     private int x;
@@ -11,7 +13,7 @@ public class Monstre extends Personnage {
      * @param attaque
      * @param hp
      */
-    public Monstre(int attaque, int hp) {
+    protected Monstre(int attaque, int hp) {
         this.attaque = attaque;
         this.hp = hp;
     }
@@ -20,26 +22,26 @@ public class Monstre extends Personnage {
      * retourne x
      * @return
      */
-    public int getX (){return x;}
+    protected int getX (){return x;}
 
     /**
      * retourne la vie
      * @return
      */
-    public int getVie (){return hp;}
+    protected int getVie (){return hp;}
 
     /**
      * retourner Y
      * @return
      */
-    public int getY (){return y;}
+    protected int getY (){return y;}
 
     /**
      * Il regarde les coordonnées de Adlez et détermine s'il faut se déplacer ou attaquer
      * @param Adlez nécessite le personnage pour ses coordonnées
      * @param map pour déplacer le monstre
      */
-    public void verifier (Heros Adlez, Tuile [][]map){
+    protected void bouger (Heros Adlez, Tuile [][]map){
         if (Adlez.getX()-x==-1||Adlez.getX()-x==0||Adlez.getX()-x==1){//c'est des maths
             if (Adlez.getY()-y==-1||Adlez.getY()-y==0||Adlez.getY()-y==1){
                 attaquerHeros(Adlez);//voir la méthode attaquerHeros
@@ -93,7 +95,7 @@ public class Monstre extends Personnage {
      * @param y coordonnée y pour se déplacer
      */
 
-    public void marcher(Tuile[][] map, int x, int y) {//simplement placer @ sur une tuile
+    protected void marcher(Tuile[][] map, int x, int y) {//simplement placer @ sur une tuile
         map[y][x].setMonstre();//voir setMonstre dans Plancher
         map[y][x].setPersonnage(true);//cette Tuile a un personnage présentemment (pour ne pas disparaître après que
         //Adlez marche dessus (Voir Plancher pour plus d'explication) )
@@ -106,7 +108,7 @@ public class Monstre extends Personnage {
      * @param x
      * @param y
      */
-    public void partir(Tuile [][]map, int x, int y){
+    protected void partir(Tuile [][]map, int x, int y){
         map[y][x].setPersonnage(false);
         map[y][x].revenir();
     }
@@ -115,7 +117,7 @@ public class Monstre extends Personnage {
      * Diminue la vie de ce héros selon son attaque
      * @param Adlez
      */
-    private void attaquerHeros(Heros Adlez){
+    protected void attaquerHeros(Heros Adlez){
         Adlez.diminuerVie(attaque);
     }
 
@@ -123,7 +125,7 @@ public class Monstre extends Personnage {
      * Si le monstre est attaqué (selon la force de Adlez)
      * @param combien la force de Adlez
      */
-    public void diminuerVie (int combien) {
+    protected void diminuerVie (int combien) {
         hp -= combien;
     }
 }

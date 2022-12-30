@@ -1,8 +1,9 @@
 package pkgTp2Sim202;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Pancarte extends Tuile {
+public class Pancarte extends Tuile implements Serializable {
     private String symbole="!";
     private String act="!";
     private boolean vide=true;
@@ -14,14 +15,14 @@ public class Pancarte extends Tuile {
      * retourne symbole
      * @return
      */
-    public String getSymbole (){
+    protected String getSymbole (){
         return symbole;
     }
 
     /**
      * affiche "&" au lieu du symbole
      */
-    public void setHero (){
+    protected void setHero (){
         if (vide){
             symbole=adlez;
         }
@@ -31,12 +32,12 @@ public class Pancarte extends Tuile {
      * Change le symbole
      * @param symbole le symbole à changer
      */
-    public void setSymbole (String symbole){this.symbole=symbole;}
+    protected void setSymbole (String symbole){this.symbole=symbole;}
 
     /**
      * affiche @ au lieu du symbole
      */
-    public void setMonstre(){
+    protected void setMonstre(){
         if (vide){
             symbole=monstre;
         }
@@ -46,14 +47,14 @@ public class Pancarte extends Tuile {
      * monstre s'il y avait un monstre sur la case
      * @param personnage si monstre part (false) ou arrive (true)
      */
-    public void setPersonnage (boolean personnage){
+    protected void setPersonnage (boolean personnage){
         this.personnage=personnage;
     }
 
     /**
      * revient au symbole d'avant
      */
-    public void revenir (){
+    protected void revenir (){
         if (personnage){
             symbole="@";
         }else {
@@ -65,5 +66,5 @@ public class Pancarte extends Tuile {
      * montre si on peut marcher dessus
      * @return
      */
-    public boolean getVide (){return vide;}
+    protected boolean getVide (){return vide;}
 }

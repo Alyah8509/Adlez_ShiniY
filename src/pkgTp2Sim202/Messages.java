@@ -9,14 +9,14 @@ public class Messages {
      * Demande une liste String qui est le message à afficher
      * @param message
      */
-    public void setMessage (ArrayList <String> message){
+    protected void setMessage (ArrayList <String> message){
         this.message=message;
     }
 
     /**
      * L'affichage du message
      */
-    public void afficher (){
+    protected void afficher (){
         System.out.print("Le message:");
         for (int i=0; i<message.size(); i++){
             if (i==message.size()-1){//s'il y a juste une phrase sans virgule
@@ -26,4 +26,9 @@ public class Messages {
             }
         }System.out.println();//change de ligne
     }
+
+    /**
+     * @return le message (pour la sauvegarde)
+     */
+    protected ArrayList <String>getMessage(){return message;}
 }

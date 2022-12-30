@@ -1,6 +1,9 @@
 package pkgTp2Sim202;
 
-public class Mur extends Tuile {
+import java.awt.*;
+import java.io.Serializable;
+
+public class Mur extends Tuile implements Serializable {
     private String symbole="#";
     private boolean vide=false;//ne peut pas marcher dessus
 
@@ -8,7 +11,7 @@ public class Mur extends Tuile {
      * retourne le symbole
      * @return
      */
-    public String getSymbole (){
+    protected String getSymbole (){
         return symbole;
     }
 
@@ -16,5 +19,5 @@ public class Mur extends Tuile {
      * retourne si on peut marcher dessus ou non
      * @return
      */
-    public boolean getVide (){return vide;}
+    protected boolean getVide (){return vide;}
 }//Mur n'a presque rien vu qu'un ne peut pas piler dessus.

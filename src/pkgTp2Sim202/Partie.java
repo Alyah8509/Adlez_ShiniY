@@ -1,10 +1,11 @@
 package pkgTp2Sim202;
 
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Partie {
+public class Partie implements Serializable {
     private Tuile[][] map;
     private boolean quit=false;
     private Heros Adlez = new Heros();
@@ -14,19 +15,44 @@ public class Partie {
     private ArrayList<Monstre> monstres = new ArrayList<>();
     private Messages messages=new Messages();
     private ArrayList <Integer> donnesTp=new ArrayList<>();
-
-    public void jouer(int niveau) {
+    private ArrayList <String> message1=new ArrayList<>();
+    private ArrayList <Integer> ouvre=new ArrayList<>();
+    /**
+     * La méthode qui fait bouger tout le système. Il lit les lettres écrites et il bouge Adlez et les monstres
+     * selon ces lettres
+     * @param niveau le niveau du jeu.
+     */
+    protected void jouer(int niveau,boolean sauve) {
         Scanner sc = new Scanner(System.in);
         String actions;
         int essais = 0;
         while (!quit) {
             if (essais == 0) {//si c'est la première fois qu'on arrive à ce niveau
-                Niveau floor = new Niveau();
-                map = floor.lire(niveau);//utilise lire pour avoir la carte
-                if (floor.getDonnesPancartes().size()!=0){
-                    messages.setMessage(floor.getMessagePancarte());
-                    //s'il y a une pancarte, préparer l'affichage
-                }
+                if (sauve){//si c'est une sauvegarde
+                    //voir à partir de la ligne 45 pour plus de détails
+                    Niveau floor = new Niveau();
+                    map = floor.lire(niveau);//utilise lire pour avoir la carte
+                    donnesTp=floor.getDonnesTp();
+                    if (ouvre.get(0)!=0){//Si le nombre de coffre ouverts n'est pas de 0
+                        for (int i=0; i<ouvre.size(); i+=2){//change de symbole de "$" à "_"
+                            map[ouvre.get(i)][ouvre.get(i+1)].setAct();
+                        }
+                    }
+                    messages.setMessage(message1);//change le message
+                    map[Adlez.getY()][Adlez.getX()].setHero();//pose Adlez
+                    if (monstres.size()!=0){//s'il y a des monstres
+                        for (int i=0; i<monstres.size(); i++){  //les place dans la map
+                            monstres.get(i).marcher(map,monstres.get(i).getX(),monstres.get(i).getY());
+                        }
+                    }
+                    Adlez.afficher(map);
+                }else {
+                    Niveau floor = new Niveau();
+                    map = floor.lire(niveau);//utilise lire pour avoir la carte
+                    if (floor.getDonnesPancartes().size() != 0) {
+                        messages.setMessage(floor.getMessagePancarte());
+                        //s'il y a une pancarte, préparer l'affichage
+                    }
                 donnesTp=floor.getDonnesTp();
                 positionJoueur = floor.getPositionJoueur();
                 Adlez.setPosition(positionJoueur);
@@ -42,11 +68,11 @@ public class Partie {
                         monstres.add(new Monstre(donnesMonstres.get(i + 3), donnesMonstres.get(i + 2)));
                         //fait marcher tous les monstres existant dans la liste (un monstre à chaque bond de 4,
                         // expliquant info)
-                        monstres.get(info).marcher(map,donnesMonstres.get(i),donnesMonstres.get(i+1));
+                        monstres.get(info).marcher(map, donnesMonstres.get(i), donnesMonstres.get(i + 1));
                         info++;
                     }
-                }
-                Adlez.afficher(map);
+                    }
+                Adlez.afficher(map);}
                 //Adlez.afficher s'agit d'afficher la carte avec getSymbole qui retourne un String propre à
                 // cette tuile (devient & ou @ possiblement)
 
@@ -137,12 +163,56 @@ public class Partie {
                 else if (actionEnChar[i]=='q'){
                     //si c'est l'option quitter, quit égale true et la boucle dans partie se brise
                     quit=true;
+                    try {
+                        FileOutputStream foo=new FileOutputStream("partie.sav");
+                        ObjectOutputStream oof=new ObjectOutputStream(foo);
+                        oof.close();//au cas ou, vider le fichier
+                        FileOutputStream fos=new FileOutputStream("partie.sav");
+                        ObjectOutputStream oos=new ObjectOutputStream(fos);
+                        ouvre.clear();
+                        for (int w = 0; w < map.length; w++) {
+                            for (int d = 0; d < map[0].length; d++) {
+                                //vérifie s'il y a un trésor d'ouvert. Si oui, enregistrer les coordonnées.
+                                if (map[w][d].getClass()==Tresor.class){
+                                    if (map[w][d].getSymbole().equals("_")){
+                                        ouvre.add(w);ouvre.add(d);
+                                    }
+                                }
+                            }
+                        }
+                        if (ouvre.size()!=0){
+                            oos.writeObject(ouvre);
+                        }
+                        else {//Sinon, enregistrer 0
+                            ArrayList <Integer> k=new ArrayList<>();k.add(0);
+                            oos.writeObject(k);
+                        }
+                        ouvre.clear();
+                        oos.writeObject(niveau);
+                        oos.writeObject(Adlez);
+                        if (monstres.size()!=0){//true s'il y a des monstres
+                            oos.writeObject(true);
+                        oos.writeObject(monstres);
+                        }
+                        else {
+                            oos.writeObject(false);
+                        }
+                        if (messages.getMessage().size()!=0){
+                            oos.writeObject(true);
+                        oos.writeObject(messages.getMessage());}
+                        else {
+                            oos.writeObject(false);
+                        }
+                        oos.close();
+                        } catch (Exception e){
+
+                    }
                     break;
                 }
 
                 for (int r=0; r<monstres.size();r++){
                     //le tour des monstres (voir la classe Monstre)
-                    monstres.get(r).verifier(Adlez,map);
+                    monstres.get(r).bouger(Adlez,map);
                 }
                 if (Adlez.getVie()<=0){//si Adlez meurt
                     quit=true;//quitter le jeu
@@ -173,7 +243,7 @@ public class Partie {
      * retourne quitter
      * @return
      */
-    public boolean getQuit (){
+    protected boolean getQuit (){
         return quit;
     }
 
@@ -181,19 +251,61 @@ public class Partie {
      * retourne le statut de Adlez
      * @return
      */
-    public Vie getActuelle(){
+    protected Vie getActuelle(){
         return actuelle;
     }
 
     /**
      * Les 3 statuts possibles de Adlez
      */
-    public enum Vie {
+    protected enum Vie {
         MORT,
         VIVANT,
         GAMECLEAR
     }
-    public static void toucher (Tuile [][]map, Heros Adlez, Messages messages, int niveau){
+
+    /**
+     * Change Adlez pour la sauvegarde
+     * @param Adlez
+     */
+    protected void setAdlez (Heros Adlez){
+        this.Adlez=Adlez;
+    }
+
+    /**
+     * Change le arrayliste Monstre pour la sauvegarde
+     * @param monstres
+     */
+    protected void setMonstres (ArrayList<Monstre> monstres){
+        this.monstres=monstres;
+    }
+
+    /**
+     * Change la liste String dans message (sauvegarde)
+     * Je pouvais aussi l'obtenir de la lecture de Niveau aussi
+     * @param message1
+     */
+    protected void setMessages (ArrayList <String> message1){
+        this.message1=message1;
+    }
+
+    /**
+     * Change la liste int pour voir il y a combien de trésor ouverts
+     * @param ouvre
+     */
+    protected void setOuvre (ArrayList<Integer>ouvre){
+        this.ouvre=ouvre;
+    }
+
+    /**
+     * Raccourci de jouer.
+     * Il interagit avec les objects (commande c)
+     * @param map la carte de Tuile
+     * @param Adlez le personnage qui bouge
+     * @param messages si la tuile est une pancarte
+     * @param niveau pour laisser la classe trésor lire le bon fichier
+     */
+    private void toucher (Tuile [][]map, Heros Adlez, Messages messages, int niveau){
         ArrayList<Integer> boite=new ArrayList<>();//liste pour stocker les coordonnées temporairement
         if (map[Adlez.getY()][Adlez.getX()].getClass()!=Mur.class&&map[Adlez.getY()][Adlez.getX()].getClass()!=Plancher.class){
             //du moment que ce n'est pas un mur ou un plancher, on peut interagir avec

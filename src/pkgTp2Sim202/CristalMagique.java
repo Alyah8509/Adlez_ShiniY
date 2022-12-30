@@ -6,7 +6,7 @@ public class CristalMagique extends Item{
      * Override la méthode utiliser de Item.
      * @param Adlez Pour accéder le nombre de cristal à Adlez
      */
-    public void utiliser (Heros Adlez){
+    protected void utiliser (Heros Adlez){
         Adlez.additionnerCristaux();
     }
 }

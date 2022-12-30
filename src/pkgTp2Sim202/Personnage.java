@@ -1,6 +1,8 @@
 package pkgTp2Sim202;
 
-public abstract class Personnage {
+import java.io.Serializable;
+
+public abstract class Personnage implements Serializable {
     //classe vide
 
 }

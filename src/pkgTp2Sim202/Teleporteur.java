@@ -1,6 +1,8 @@
 package pkgTp2Sim202;
 
-public class Teleporteur extends Tuile {
+import java.io.Serializable;
+
+public class Teleporteur extends Tuile implements Serializable {
     private int x;
     private int y;
     private String symbole = "*";
@@ -15,7 +17,7 @@ public class Teleporteur extends Tuile {
      * @param x
      * @param y
      */
-    public Teleporteur(int x, int y) {
+    protected Teleporteur(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -24,7 +26,7 @@ public class Teleporteur extends Tuile {
      * montre s'il y avait un monstre sur cette case
      * @param personnage false si rien n'est là, true si un monstre est là.
      */
-    public void setPersonnage (boolean personnage){
+    protected void setPersonnage (boolean personnage){
         this.personnage=personnage;
     }
 
@@ -32,14 +34,14 @@ public class Teleporteur extends Tuile {
      * retourne symbole
      * @return
      */
-    public String getSymbole() {
+    protected String getSymbole() {
         return symbole;
     }
 
     /**
      * remplace symbole par "&"
      */
-    public void setHero() {
+    protected void setHero() {
         if (vide) {
             symbole = adlez;
         }
@@ -49,7 +51,7 @@ public class Teleporteur extends Tuile {
      * remplace symbole par "@"
      */
 
-    public void setMonstre() {
+    protected void setMonstre() {
         if (vide) {
             symbole = monstre;
         }
@@ -58,7 +60,7 @@ public class Teleporteur extends Tuile {
     /**
      * revient au symbole d'avant
      */
-    public void revenir() {
+    protected void revenir() {
         if (personnage){
             symbole="@";
         }else {
@@ -72,7 +74,7 @@ public class Teleporteur extends Tuile {
      * si on peut marcher dessus
      * @return oui ou non
      */
-    public boolean getVide() {
+    protected boolean getVide() {
         return vide;
     }
 
@@ -81,7 +83,7 @@ public class Teleporteur extends Tuile {
      * retourne x (destination)
      * @return
      */
-    public int getTpx (){
+    protected int getTpx (){
         return x;
     }
 
@@ -89,7 +91,7 @@ public class Teleporteur extends Tuile {
      * retourne y (destination)
      * @return
      */
-    public int getTpy(){
+    protected int getTpy(){
         return y;
     }
 
@@ -97,5 +99,5 @@ public class Teleporteur extends Tuile {
      * Change le symbole
      * @param symbole String à remplacer
      */
-    public void setSymbole (String symbole){this.symbole=symbole;}
+    protected void setSymbole (String symbole){this.symbole=symbole;}
 }

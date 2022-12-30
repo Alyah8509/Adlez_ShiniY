@@ -12,7 +12,7 @@ public class Heros extends Personnage {
     /**
      * Additionne vie+1 pour la potion de vie
      */
-    public void additionnerVie(){
+    protected void additionnerVie(){
         vie+=1;
         if (vie>=6){
             vie=6;//il ne peut pas dépasser 6
@@ -23,7 +23,7 @@ public class Heros extends Personnage {
      * retourne Vie
      * @return
      */
-    public int getVie (){
+    protected int getVie (){
         return vie;
     }
 
@@ -31,19 +31,19 @@ public class Heros extends Personnage {
      * retourne le nombre de cristaux
      * @return
      */
-    public int getCristaux(){
+    protected int getCristaux(){
         return cristaux;
     }
     /**
      * Additionne force pour la potion de force
      */
-    public void addForce (){force+=1;}
+    protected void addForce (){force+=1;}
 
     /**
      * Change la position dans la liste
      * @param position la position à modifier
      */
-    public void setPosition (ArrayList <Integer> position){
+    protected void setPosition (ArrayList <Integer> position){
         this.position=position;
     }
 
@@ -51,7 +51,7 @@ public class Heros extends Personnage {
      * retourne le premier chiffre dans la liste, donc la coordonnée x
      * @return
      */
-    public int getX (){
+    protected int getX (){
         return position.get(0);
     }
 
@@ -59,7 +59,7 @@ public class Heros extends Personnage {
      * retourne le deuxième chiffre de la liste, donc y
      * @return
      */
-    public int getY (){
+    protected int getY (){
         return position.get(1);
     }
 
@@ -67,7 +67,7 @@ public class Heros extends Personnage {
      * Change le premier chiffre de la liste, change x
      * @param x le nombre à utiliser
      */
-    public void setX (int x){
+    protected void setX (int x){
         position.set(0, x);
     }
 
@@ -76,7 +76,7 @@ public class Heros extends Personnage {
      * change y
      * @param y
      */
-    public void setY (int y){
+    protected void setY (int y){
         position.set(1,y);
     }
 
@@ -84,7 +84,7 @@ public class Heros extends Personnage {
      * Afficher la carte 2d
      * @param map la carte à afficher
      */
-    public void afficher (Tuile [][] map){
+    protected void afficher (Tuile [][] map){
         System.out.println("Vies: " + vie + "/6        Force: " + force + "            Cristaux: " + cristaux);
         for (int i = 0; i < map.length; i++) {
             for (int y = 0; y < map[0].length; y++) {
@@ -98,7 +98,7 @@ public class Heros extends Personnage {
      * Diminuer la vie selon la force du monstre
      * @param combien combiend de vie à diminuer (force du monstre)
      */
-    public void diminuerVie (int combien){
+    protected void diminuerVie (int combien){
         vie-=combien;
     }
 
@@ -106,7 +106,7 @@ public class Heros extends Personnage {
      * Attaquer le monstre selon la force
      * @param monstre le monstre à attaquer
      */
-    public void attaquer (Monstre monstre){
+    protected void attaquer (Monstre monstre){
         monstre.diminuerVie(force);
         System.out.println("Vie restant de ce monstre:"+monstre.getVie());
     }
@@ -114,7 +114,7 @@ public class Heros extends Personnage {
     /**
      * Ajoute un cristal
      */
-    public void additionnerCristaux (){
+    protected void additionnerCristaux (){
         cristaux++;
     }
 
